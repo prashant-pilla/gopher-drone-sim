@@ -13,11 +13,6 @@ class StandardShippingState : public PriorityShippingState {
 
     public:
         /**
-         * @brief Constructor
-        */
-       StandardShippingState();
-
-        /**
          * @brief Gets Shipping Prioirty of current package
          * @return int representing middle shipping priority
         */

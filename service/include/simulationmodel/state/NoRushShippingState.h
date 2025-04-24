@@ -13,11 +13,6 @@ class NoRushShippingState : public PriorityShippingState {
 
     public:
         /**
-         * @brief Constructor
-        */
-       NoRushShippingState();
-
-        /**
          * @brief Gets Shipping Prioirty of current package
          * @return int representing lowest shipping priority
         */
