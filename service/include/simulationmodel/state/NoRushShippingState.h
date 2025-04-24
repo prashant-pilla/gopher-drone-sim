@@ -9,9 +9,14 @@
 */
 class NoRushShippingState : public PriorityShippingState {
     private:
-        *Package package;
+        Package* package;
 
     public:
+        /**
+         * @brief Constructor
+        */
+       NoRushShippingState();
+
         /**
          * @brief Gets Shipping Prioirty of current package
          * @return int representing lowest shipping priority

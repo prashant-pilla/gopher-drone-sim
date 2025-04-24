@@ -6,8 +6,11 @@
 #include "IEntity.h"
 #include "math/vector3.h"
 #include "util/json.h"
+#include "PriorityShippingState.h"
 
 class Robot;
+
+class PriorityShippingState;
 
 class Package : public IEntity {
  public:
@@ -70,11 +73,24 @@ class Package : public IEntity {
    */
   virtual void handOff();
 
+  /**
+   * @brief Gets the priority level of the package
+   * @return int representing prioirty level
+  */
+  virtual int getPriority();
+
+  /**
+   * @brief sets the priority level of the package
+   * @param level int representing desired priority level
+  */
+  virtual void setPriority(int level);
+
  protected:
   bool requiresDelivery_ = true;
   Vector3 destination;
   std::string strategyName;
   Robot* owner = nullptr;
+  PriorityShippingState* shippingState = nullptr;
 };
 
 #endif  // PACKAGE_H

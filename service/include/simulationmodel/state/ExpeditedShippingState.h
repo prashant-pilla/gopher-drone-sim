@@ -9,9 +9,14 @@
 */
 class ExpeditedShippingState : public PriorityShippingState {
     private:
-        *Package package;
+        Package* package;
 
     public:
+        /**
+         * @brief Constructor
+        */
+       ExpeditedShippingState();
+
         /**
          * @brief Gets Shipping Prioirty of current package
          * @return int representing highest shipping priority

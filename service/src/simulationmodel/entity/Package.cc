@@ -2,6 +2,14 @@
 
 #include "Robot.h"
 
+#include "PriorityShippingState.h"
+
+#include "NoRushShippingState.h"
+
+#include "StandardShippingState.h"
+
+#include "ExpeditedShippingState.h"
+
 Package::Package(const JsonObject& obj) : IEntity(obj) {}
 
 Vector3 Package::getDestination() const { return destination; }
@@ -28,5 +36,19 @@ void Package::initDelivery(Robot* owner) {
 void Package::handOff() {
   if (owner) {
     owner->receive(this);
+  }
+}
+
+int Package::getPriority() {
+  return shippingState->getPriority();
+}
+
+void Package::setPriority(int level) {
+  if (level == 0) {
+    shippingState = new NoRushShippingState();
+  } else if (level == 1) {
+    shippingState = new StandardShippingState();
+  } else {
+    shippingState = new ExpeditedShippingState();
   }
 }
