@@ -44,6 +44,10 @@ int Package::getPriority() {
 }
 
 void Package::setPriority(int level) {
+  if (shippingState) {
+    delete shippingState;
+  }
+  
   if (level == 0) {
     shippingState = new NoRushShippingState();
   } else if (level == 1) {

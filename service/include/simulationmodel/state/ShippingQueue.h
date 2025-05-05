@@ -14,26 +14,26 @@ class ShippingQueue {
         /**
          * @brief constructor
         */
-       ShippingQueue();
+       ShippingQueue() {};
 
        /**
         * @brief add a package to the queue
         * @param pkg package to be added to queue
        */
-      void addPackage(Package& pkg);
+      void addPackage(Package* pkg);
 
       /**
-       * @brief remove a package from the queue
-       * @param pkg package to be removed
+       * @brief remove and return package at front of queue
+       * @retval pointer to package to be removed from front of queue
       */
-     void removePackage(Package& pkg);
+     Package* removePackage();
 
      /**
       * @brief update the priority of a package
       * @param pkg package to be updated
       * @param level new priority shipping level
      */
-        void updatePackage(Package& pkg, int level);
+        void updatePackage(Package* pkg, int level);
 
         /**
          * @brief sort queue by priority
@@ -41,7 +41,7 @@ class ShippingQueue {
     void sortQueue();
 
     private:
-        std::vector<Package> packages;
+        std::vector<Package*> packages;
 };
 
 #endif
