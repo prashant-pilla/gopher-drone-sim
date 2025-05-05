@@ -32,7 +32,7 @@ class DataManager {
   /**
    * @brief Constructor
    */
-  DataManager();
+  DataManager() {};
   /**
    * @brief Destructor
    */
