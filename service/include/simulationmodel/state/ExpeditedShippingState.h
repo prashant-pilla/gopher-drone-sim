@@ -16,7 +16,7 @@ class ExpeditedShippingState : public PriorityShippingState {
          * @brief Gets Shipping Prioirty of current package
          * @return int representing highest shipping priority
         */
-       int getPriority() { return 2; }
+       int getPriority();
 };
 
 #endif

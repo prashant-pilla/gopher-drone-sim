@@ -16,7 +16,7 @@ class NoRushShippingState : public PriorityShippingState {
          * @brief Gets Shipping Prioirty of current package
          * @return int representing lowest shipping priority
         */
-       int getPriority() { return 0; }
+       int getPriority();
 };
 
 #endif

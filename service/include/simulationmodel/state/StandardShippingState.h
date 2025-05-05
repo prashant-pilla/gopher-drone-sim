@@ -16,7 +16,7 @@ class StandardShippingState : public PriorityShippingState {
          * @brief Gets Shipping Prioirty of current package
          * @return int representing middle shipping priority
         */
-       int getPriority() { return 1; }
+       int getPriority();
 };
 
 #endif
