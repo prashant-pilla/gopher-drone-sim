@@ -1,6 +1,6 @@
 # This Makefile provides you with quick access to usefule commands
 
-PORT = 8081
+PORT = 8086
 BUILD_DIR = build
 TRANSITE_EXE = $(BUILD_DIR)/bin/transit_service
 
