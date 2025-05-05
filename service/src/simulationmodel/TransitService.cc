@@ -59,7 +59,6 @@ class TransitService : public JsonSession, public IController {
     } else if (cmd == "writeStats") {
       // handle data collection here
     }
-    }
   }
 
   void sendEntity(const std::string& event, const IEntity& entity,
