@@ -37,8 +37,7 @@ void DroneColorDecorator::update(double dt) {
       distToPackage = (sub->getPosition() - p->getPosition()).magnitude();
     }
     if (distToDestination < 0) {
-      distToDestination =
-          (p->getPosition() - p->getDestination()).magnitude();
+      distToDestination = (p->getPosition() - p->getDestination()).magnitude();
     }
     if (!sub->pickedUp) {
       double percentage =
@@ -50,7 +49,7 @@ void DroneColorDecorator::update(double dt) {
           1 - ((sub->getPosition() - p->getDestination()).magnitude() /
                distToDestination);
 
-      setColor(60+ 60 * percentage, 100, 50);
+      setColor(60 + 60 * percentage, 100, 50);
     }
   } else {
     setColor(0, 0, 100);
