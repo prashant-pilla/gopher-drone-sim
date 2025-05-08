@@ -22,7 +22,6 @@ Drone::~Drone() {
 void Drone::getNextDelivery() {
   if (model && model->queue.packages.size() > 0) {
     package = model->queue.packages.front();
-    model->queue.removePackage();
 
     if (package) {
       std::string message = getName() + " heading to: " + package->getName();
@@ -68,6 +67,9 @@ void Drone::update(double dt) {
       delete toPackage;
       toPackage = nullptr;
       pickedUp = true;
+      package->pickUp();
+      model->queue.removePackage();
+      std::cout << model->queue.packages.size() << std::endl;
     }
   } else if (toFinalDestination) {
     toFinalDestination->move(this, dt);

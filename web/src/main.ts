@@ -150,6 +150,9 @@ function refreshPackages() {
 function refreshPackagesLocally() {
   // Reset the package queue
   packageQueue = [];
+
+  //console.log("Current packages in map:", Array.from(packages.entries()));
+
   
   // Add all known packages to the queue
   packages.forEach(pkg => {
@@ -345,6 +348,7 @@ connect().then((socket) => {
         break;
       case "Notification":
         const message = data.details.message;
+        console.log(message);
         
         // Extract priority information from notifications
         if (message.includes("priority changed to")) {
@@ -382,22 +386,32 @@ connect().then((socket) => {
               refreshPackagesLocally();
             }
           }
-        // } else if (message.includes("dropped off:")) {
-        //   const match = message.match(/dropped off: (.+?) \(/);
-        //   if (match && match[1]) {
-        //     const packageName = match[1];
+        } else if (message.includes("dropped off:")) {
+          console.log("dropping off\n");
+          const match = message.match(/dropped off: (.+)/);
+          console.log("Match: ", match);
+          if (match && match[1]) {
+            const packageName = match[1];
+            console.log(packageName);
         
-        //     for (const [id, pkg] of packages.entries()) {
-        //       if (pkg.name === packageName) {
-        //         packages.delete(id);
-        //         break;
-        //       }
-        //     }
+            for (const [id, pkg] of packages.entries()) {
+              console.log(pkg.name);
+              if (pkg.name === packageName) {
+                packages.delete(id);
+                break;
+              }
+            }
         
-        //     if (!changePriorityInput.hidden) {
-        //       refreshPackagesLocally();
-        //     }
-        //   }
+            console.log("Refreshing UI after delivery...");
+            refreshPackagesLocally();
+            console.log("Refreshed.");
+          }
+          // console.log("Received drop off message:", message);
+
+          // packages.clear();  // Clear all
+          // refreshPackagesLocally();  // UI should now show nothing
+
+          // console.log("Cleared packages, refreshed UI.");
         }
         
         // Color-code notifications based on priority

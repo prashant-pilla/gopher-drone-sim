@@ -43,6 +43,8 @@ class TransitService : public JsonSession, public IController {
           
           if (!success) {
             notify("Could not change priority for " + packageName + ". Package may be picked up already or does not exist.");
+          } else {
+            notify(packageName + "has had their priority changed to " + priority);
           }
         }
       } else if (cmd == "GetDeliveryQueue") {

@@ -92,6 +92,11 @@ class Package : public IEntity {
   */
   virtual void setPriority(const std::string& priority);
 
+  /**
+   * @brief pick up method that says package doesn't require delivery
+  */
+  virtual void pickUp();
+
  protected:
   bool requiresDelivery_ = true;
   Vector3 destination;

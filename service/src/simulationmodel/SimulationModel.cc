@@ -68,6 +68,8 @@ void SimulationModel::scheduleTrip(const JsonObject& details, const std::string&
   Package* package = nullptr;
 
   for (auto& [id, entity] : entities) {
+    std::cout << "Name + _package: " << name << "_package" << std::endl;
+    std::cout << "Entity->getName(): " << entity->getName() << std::endl;
     if (name + "_package" == entity->getName()) {
       if (Package* p = dynamic_cast<Package*>(entity)) {
         if (p->requiresDelivery()) {
@@ -84,6 +86,8 @@ void SimulationModel::scheduleTrip(const JsonObject& details, const std::string&
     package->setStrategyName(strategyName);
     package->setPriority(priority);
     queue.addPackage(package);
+    std::cout << "package added" << std::endl;
+    std::cout << queue.packages.size() << std::endl;
     //scheduledDeliveries.push_back(package);
     controller.sendEventToView("DeliveryScheduled", details);
   }
@@ -92,6 +96,9 @@ void SimulationModel::scheduleTrip(const JsonObject& details, const std::string&
 bool SimulationModel::changePackagePriority(const std::string& packageName, const std::string& priority) {
   std::cout << "target package: " << packageName << std::endl;
   std::cout << "request priority: " << priority << std::endl;
+  if (queue.packages.size() == 0) {
+    std::cout << "queue is empty" << std::endl;
+  }
   for (const Package* pkg : queue.packages) {
     std::cout << "package name: " << pkg->getName() << std::endl;
     if (pkg->getName() == packageName) {
@@ -142,6 +149,7 @@ void SimulationModel::update(double dt) {
 void SimulationModel::stop(void) {}
 
 void SimulationModel::removeFromSim(int id) {
+  std::cout << "removing something" << std::endl;
   IEntity* entity = entities[id];
   if (entity) {
     // for (auto i = scheduledDeliveries.begin(); i != scheduledDeliveries.end();

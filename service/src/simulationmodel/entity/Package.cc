@@ -37,10 +37,13 @@ void Package::initDelivery(Robot* owner) {
   destination = owner->getPosition();
 }
 
+void Package::pickUp() {
+  requiresDelivery_ = false;
+}
+
 void Package::handOff() {
   if (owner) {
     owner->receive(this);
-    requiresDelivery_ = false;
   }
 }
 
