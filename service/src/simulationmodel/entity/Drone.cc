@@ -20,10 +20,13 @@ Drone::~Drone() {
 }
 
 void Drone::getNextDelivery() {
-  if (model && model->queue.packages.size() > 0) {
-    package = model->queue.packages.front();
+  if (!model) return;
 
-    if (package) {
+  for (auto pkg : model->queue.packages) {
+    if (!pkg->isClaimed()) {
+      package = pkg;
+      package->claim();
+
       std::string message = getName() + " heading to: " + package->getName();
       notifyObservers(message);
       available = false;
@@ -36,21 +39,18 @@ void Drone::getNextDelivery() {
 
       std::string strat = package->getStrategyName();
       if (strat == "astar") {
-        toFinalDestination = new AstarStrategy(
-            packagePosition, finalDestination, model->getGraph());
+        toFinalDestination = new AstarStrategy(packagePosition, finalDestination, model->getGraph());
       } else if (strat == "dfs") {
-        toFinalDestination = new DfsStrategy(packagePosition, finalDestination,
-                                             model->getGraph());
+        toFinalDestination = new DfsStrategy(packagePosition, finalDestination, model->getGraph());
       } else if (strat == "bfs") {
-        toFinalDestination = new BfsStrategy(packagePosition, finalDestination,
-                                             model->getGraph());
+        toFinalDestination = new BfsStrategy(packagePosition, finalDestination, model->getGraph());
       } else if (strat == "dijkstra") {
-        toFinalDestination = new DijkstraStrategy(
-            packagePosition, finalDestination, model->getGraph());
+        toFinalDestination = new DijkstraStrategy(packagePosition, finalDestination, model->getGraph());
       } else {
-        toFinalDestination =
-            new BeelineStrategy(packagePosition, finalDestination);
+        toFinalDestination = new BeelineStrategy(packagePosition, finalDestination);
       }
+
+      return; 
     }
   }
 }
@@ -60,6 +60,7 @@ void Drone::update(double dt) {
 
   if (toPackage) {
     toPackage->move(this, dt);
+    package->claim();
 
     if (toPackage->isCompleted()) {
       std::string message = getName() + " picked up: " + package->getName();
@@ -67,7 +68,6 @@ void Drone::update(double dt) {
       delete toPackage;
       toPackage = nullptr;
       pickedUp = true;
-      package->pickUp();
       model->queue.removePackage();
       std::cout << model->queue.packages.size() << std::endl;
     }

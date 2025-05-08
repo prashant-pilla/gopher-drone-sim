@@ -93,12 +93,23 @@ class Package : public IEntity {
   virtual void setPriority(const std::string& priority);
 
   /**
-   * @brief pick up method that says package doesn't require delivery
+   * @brief claim a package from other drones
+  */
+  virtual void claim();
+
+  /**
+   * @brief pick up a package
   */
   virtual void pickUp();
 
+  /**
+   * @brief checks if a package is claimed
+  */
+  virtual bool isClaimed();
+
  protected:
   bool requiresDelivery_ = true;
+  bool claimed = false;
   Vector3 destination;
   std::string strategyName;
   Robot* owner = nullptr;

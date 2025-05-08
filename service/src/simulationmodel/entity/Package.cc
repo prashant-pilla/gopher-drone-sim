@@ -37,6 +37,14 @@ void Package::initDelivery(Robot* owner) {
   destination = owner->getPosition();
 }
 
+void Package::claim() {
+  claimed = true;
+}
+
+bool Package::isClaimed() {
+  return claimed;
+}
+
 void Package::pickUp() {
   requiresDelivery_ = false;
 }
