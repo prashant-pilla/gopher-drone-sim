@@ -26,21 +26,20 @@ class ShippingQueue {
        * @brief remove and return package at front of queue
        * @retval pointer to package to be removed from front of queue
       */
-     Package* removePackage();
+     void removePackage();
 
      /**
       * @brief update the priority of a package
       * @param pkg package to be updated
-      * @param level new priority shipping level
+      * @param priority new priority shipping level
      */
-        void updatePackage(Package* pkg, int level);
+        void updatePackage(Package* pkg, const std::string& priority);
 
         /**
          * @brief sort queue by priority
         */
-    void sortQueue();
+        void sortQueue();
 
-    private:
         std::vector<Package*> packages;
 };
 

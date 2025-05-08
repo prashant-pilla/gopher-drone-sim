@@ -2,6 +2,7 @@
 #define PACKAGE_H
 
 #include <vector>
+#include <string>
 
 #include "IEntity.h"
 #include "math/vector3.h"
@@ -18,7 +19,7 @@ class Package : public IEntity {
    * @brief Constructor
    * @param obj JSON object containing the package's information
    */
-  Package(const JsonObject& obj);
+  Package(const JsonObject& obj, const std::string& priority);
 
   /**
    * @brief Gets the Package's destination
@@ -77,13 +78,19 @@ class Package : public IEntity {
    * @brief Gets the priority level of the package
    * @return int representing prioirty level
   */
-  virtual int getPriority();
+  virtual int getPriorityLevel() const;
+
+  /**
+   * @brief Gets a pointer to the priority state
+   * @return pointer to the priority state
+  */
+  virtual PriorityShippingState* getPriorityState() const;
 
   /**
    * @brief sets the priority level of the package
    * @param level int representing desired priority level
   */
-  virtual void setPriority(int level);
+  virtual void setPriority(const std::string& priority);
 
  protected:
   bool requiresDelivery_ = true;

@@ -7,20 +7,17 @@ void ShippingQueue::addPackage(Package* pkg) {
     ShippingQueue::sortQueue();
 }
 
-Package* ShippingQueue::removePackage() {
-    if (packages.empty()) return nullptr;
+void ShippingQueue::removePackage() {
     Package* front = packages.front();
     packages.erase(packages.begin());
-    return front;
 }
 
-void ShippingQueue::updatePackage(Package* pkg, int level) {
-    pkg->setPriority(level);
+void ShippingQueue::updatePackage(Package* pkg, const std::string& priority) {
     ShippingQueue::sortQueue();
 }
 
 void ShippingQueue::sortQueue() {
     std::stable_sort(packages.begin(), packages.end(), [](Package* a, Package* b) {
-        return a->getPriority() > b->getPriority(); 
+        return a->getPriorityLevel() > b->getPriorityLevel(); 
     });
 }

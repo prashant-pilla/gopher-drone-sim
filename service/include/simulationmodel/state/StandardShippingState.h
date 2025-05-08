@@ -3,6 +3,7 @@
 
 #include "PriorityShippingState.h"
 #include "Package.h"
+#include <string>
 
 /**
  * @brief Standard Shipping State
@@ -14,9 +15,9 @@ class StandardShippingState : public PriorityShippingState {
     public:
         /**
          * @brief Gets Shipping Prioirty of current package
-         * @return int representing middle shipping priority
+         * @return string representing middle shipping priority
         */
-       int getPriority();
+       std::string getName();
 };
 
 #endif

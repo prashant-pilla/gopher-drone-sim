@@ -1,5 +1,5 @@
 #include "StandardShippingState.h"
 
-int StandardShippingState::getPriority() {
-    return 1;
+std::string StandardShippingState::getName() {
+    return "Standard";
 }

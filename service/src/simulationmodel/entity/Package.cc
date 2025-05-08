@@ -10,7 +10,11 @@
 
 #include "ExpeditedShippingState.h"
 
-Package::Package(const JsonObject& obj) : IEntity(obj) {}
+#include <string>
+
+Package::Package(const JsonObject& obj, const std::string& priority) : IEntity(obj) {
+  setPriority(priority);
+}
 
 Vector3 Package::getDestination() const { return destination; }
 
@@ -29,30 +33,42 @@ void Package::update(double dt) {}
 void Package::initDelivery(Robot* owner) {
   this->owner = owner;
   owner->requestedDelivery = false;
-  requiresDelivery_ = false;
+  //requiresDelivery_ = false;
   destination = owner->getPosition();
 }
 
 void Package::handOff() {
   if (owner) {
     owner->receive(this);
+    requiresDelivery_ = false;
   }
 }
 
-int Package::getPriority() {
-  return shippingState->getPriority();
+PriorityShippingState* Package::getPriorityState() const {
+  return shippingState;
 }
 
-void Package::setPriority(int level) {
+int Package::getPriorityLevel() const {
+  std::string priorityLevel = shippingState->getName();
+  if (priorityLevel == "Expedited") {
+    return 2;
+  } else if (priorityLevel == "NoRush") {
+    return 0;
+  } else {
+    return 1;
+  }
+}
+
+void Package::setPriority(const std::string& priority) {
   if (shippingState) {
     delete shippingState;
   }
-  
-  if (level == 0) {
+
+  if (priority == "NoRush") {
     shippingState = new NoRushShippingState();
-  } else if (level == 1) {
-    shippingState = new StandardShippingState();
-  } else {
+  } else if (priority == "Expedited") {
     shippingState = new ExpeditedShippingState();
+  } else {
+    shippingState = new StandardShippingState();
   }
 }

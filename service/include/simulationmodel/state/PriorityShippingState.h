@@ -1,6 +1,8 @@
 #ifndef PRIORITY_SHIPPING_STATE_H_
 #define PRIORITY_SHIPPING_STATE_H_
 
+#include <string>
+
 /**
  * @brief Priority Shipping State Interface
 */
@@ -15,7 +17,7 @@ class PriorityShippingState {
          * @brief Gets the priority value of the current package
          * @return int value representing priority level
         */
-       virtual int getPriority() = 0;
+       virtual std::string getName() = 0;
 };
 
 #endif

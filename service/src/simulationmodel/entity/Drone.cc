@@ -20,9 +20,9 @@ Drone::~Drone() {
 }
 
 void Drone::getNextDelivery() {
-  if (model && model->scheduledDeliveries.size() > 0) {
-    package = model->scheduledDeliveries.front();
-    model->scheduledDeliveries.pop_front();
+  if (model && model->queue.packages.size() > 0) {
+    package = model->queue.packages.front();
+    model->queue.removePackage();
 
     if (package) {
       std::string message = getName() + " heading to: " + package->getName();

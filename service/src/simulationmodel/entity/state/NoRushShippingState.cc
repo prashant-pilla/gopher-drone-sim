@@ -1,5 +1,5 @@
 #include "NoRushShippingState.h"
 
-int NoRushShippingState::getPriority() {
-    return 0;
+std::string NoRushShippingState::getName() {
+    return "NoRush";
 }

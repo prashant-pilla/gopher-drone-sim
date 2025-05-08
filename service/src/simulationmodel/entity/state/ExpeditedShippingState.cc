@@ -1,5 +1,5 @@
 #include "ExpeditedShippingState.h"
 
-int ExpeditedShippingState::getPriority() {
-    return 2;
+std::string ExpeditedShippingState::getName() {
+    return "Expedited";
 }
