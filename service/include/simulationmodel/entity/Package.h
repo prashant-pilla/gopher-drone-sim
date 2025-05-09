@@ -1,13 +1,17 @@
 #ifndef PACKAGE_H
 #define PACKAGE_H
 
+#include <string>
 #include <vector>
 
 #include "IEntity.h"
+#include "PriorityShippingState.h"
 #include "math/vector3.h"
 #include "util/json.h"
 
 class Robot;
+
+class PriorityShippingState;
 
 class Package : public IEntity {
  public:
@@ -15,7 +19,7 @@ class Package : public IEntity {
    * @brief Constructor
    * @param obj JSON object containing the package's information
    */
-  Package(const JsonObject& obj);
+  Package(const JsonObject& obj, const std::string& priority);
 
   /**
    * @brief Gets the Package's destination
@@ -70,11 +74,46 @@ class Package : public IEntity {
    */
   virtual void handOff();
 
+  /**
+   * @brief Gets the priority level of the package
+   * @return int representing prioirty level
+   */
+  virtual int getPriorityLevel() const;
+
+  /**
+   * @brief Gets a pointer to the priority state
+   * @return pointer to the priority state
+   */
+  virtual PriorityShippingState* getPriorityState() const;
+
+  /**
+   * @brief sets the priority level of the package
+   * @param level int representing desired priority level
+   */
+  virtual void setPriority(const std::string& priority);
+
+  /**
+   * @brief claim a package from other drones
+   */
+  virtual void claim();
+
+  /**
+   * @brief pick up a package
+   */
+  virtual void pickUp();
+
+  /**
+   * @brief checks if a package is claimed
+   */
+  virtual bool isClaimed();
+
  protected:
   bool requiresDelivery_ = true;
+  bool claimed = false;
   Vector3 destination;
   std::string strategyName;
   Robot* owner = nullptr;
+  PriorityShippingState* shippingState = nullptr;
 };
 
 #endif  // PACKAGE_H
