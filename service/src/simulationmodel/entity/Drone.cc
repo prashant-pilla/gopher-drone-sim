@@ -74,7 +74,6 @@ void Drone::update(double dt) {
       delete toPackage;
       toPackage = nullptr;
       pickedUp = true;
-      model->queue.removePackage();
       std::cout << model->queue.packages.size() << std::endl;
     }
   } else if (toFinalDestination) {
@@ -94,6 +93,7 @@ void Drone::update(double dt) {
       package = nullptr;
       available = true;
       pickedUp = false;
+      model->queue.removePackage();
     }
   }
 }
