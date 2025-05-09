@@ -1,14 +1,13 @@
 #include "HelperDrone.h"
-#include "HandoffRequest.h"
+
 #include "BeelineStrategy.h"
+#include "HandoffRequest.h"
 #include "SimulationModel.h"
 
 HelperDrone::HelperDrone(const JsonObject &obj) : Drone(obj) {}
 
-void HelperDrone::notify(const std::string &message, void *data) const
-{
-  if (message == "HANDOFF_REQUEST" && isAvailable())
-  {
+void HelperDrone::notify(const std::string &message, void *data) const {
+  if (message == "HANDOFF_REQUEST" && isAvailable()) {
     auto *request = static_cast<HandoffRequest *>(data);
 
     // Calculate 3D distance using existing drone position
@@ -19,8 +18,7 @@ void HelperDrone::notify(const std::string &message, void *data) const
   }
 }
 
-void HelperDrone::acceptHandoff(Package *package)
-{
+void HelperDrone::acceptHandoff(Package *package) {
   this->package = package;
   available = false;
 
@@ -28,14 +26,13 @@ void HelperDrone::acceptHandoff(Package *package)
   toPackage = new BeelineStrategy(getPosition(), package->getPosition());
 
   // Notify through model
-  if (model)
-  {
-    std::string msg = "HelperDrone " + std::to_string(getId()) + " accepted handoff";
+  if (model) {
+    std::string msg =
+        "HelperDrone " + std::to_string(getId()) + " accepted handoff";
     model->notify(msg, nullptr);
   }
 }
 
-bool HelperDrone::isAvailable() const
-{
+bool HelperDrone::isAvailable() const {
   return available && (package == nullptr);
 }

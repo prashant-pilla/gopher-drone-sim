@@ -1,6 +1,7 @@
 #include "DroneFactory.h"
-#include "LeaderDrone.h"
+
 #include "HelperDrone.h"
+#include "LeaderDrone.h"
 
 IEntity* DroneFactory::createEntity(const JsonObject& entity) {
   std::string type = entity["type"];
@@ -9,7 +10,7 @@ IEntity* DroneFactory::createEntity(const JsonObject& entity) {
     std::cout << "Drone Created" << std::endl;
 
     Drone* baseDrone = nullptr;
-    
+
     if (entity.contains("role")) {
       std::string role = entity["role"];
       if (role == "leader") {
@@ -23,7 +24,7 @@ IEntity* DroneFactory::createEntity(const JsonObject& entity) {
       baseDrone = new Drone(entity);
     }
 
-    return new DroneColorDecorator(baseDrone, 0, 0, 100);  
+    return new DroneColorDecorator(baseDrone, 0, 0, 100);
   }
   return nullptr;
 }

@@ -8,12 +8,12 @@
 #include "CompositeFactory.h"
 #include "Drone.h"
 #include "Graph.h"
+#include "HelperDrone.h"
 #include "IController.h"
 #include "IEntity.h"
 #include "IObserver.h"
-#include "Robot.h"
 #include "LeaderDrone.h"
-#include "HelperDrone.h"
+#include "Robot.h"
 
 //--------------------  Model ----------------------------
 
@@ -50,7 +50,8 @@ class SimulationModel : public IObserver {
 
   /**
    * @brief Adds observers as required if helper or leader drone
-   * @param entity Type IEntity* contain the entity to be checked and add observers to
+   * @param entity Type IEntity* contain the entity to be checked and add
+   *observers to
    **/
   void linkDroneObservers(IEntity* entity);
 
