@@ -25,6 +25,8 @@ IEntity::~IEntity() {}
 
 void IEntity::linkModel(SimulationModel* model) { this->model = model; }
 
+SimulationModel* IEntity::getModel() {return model;}
+
 int IEntity::getId() const { return id; }
 
 Vector3 IEntity::getPosition() const { return position; }
@@ -38,6 +40,8 @@ std::string IEntity::getColor() const { return color; }
 std::string IEntity::getName() const { return name; }
 
 double IEntity::getSpeed() const { return speed; }
+
+void IEntity::setSpeed(double speed_) { speed = speed_; }
 
 void IEntity::setPosition(Vector3 pos_) { position = pos_; }
 
