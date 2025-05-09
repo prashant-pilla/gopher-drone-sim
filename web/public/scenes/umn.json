@@ -67,6 +67,14 @@
   {
     "command": "CreateEntity",
     "params": {
+      "type": "WeatherControl",
+      "name": "Weather",
+      "position": [0, 0, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
       "type": "helicopter",
       "name": "Helicopter",
       "mesh": "assets/model/helicopter.glb",
