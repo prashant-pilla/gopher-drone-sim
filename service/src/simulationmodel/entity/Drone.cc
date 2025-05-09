@@ -70,6 +70,7 @@ void Drone::update(double dt) {
     if (toPackage->isCompleted()) {
       std::string message = getName() + " picked up: " + package->getName();
       notifyObservers(message);
+      package->pickUp();
       delete toPackage;
       toPackage = nullptr;
       pickedUp = true;
