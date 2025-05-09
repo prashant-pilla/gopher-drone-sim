@@ -42,7 +42,7 @@ void DroneDamageDecorator::update(double dt) {
     // drone broke :(
     // throw package back in queue and let it handle itself.
     sub->notifyObservers("Drone broke");
-    if (sub->getModel()) {
+    if (sub->getPackage()) {
       sub->getPackage()->unclaim();
     }
   }
