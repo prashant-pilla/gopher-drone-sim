@@ -26,6 +26,7 @@ void Helicopter::update(double dt) {
 
     // Update distance traveled
     this->distanceTraveled += diff;
+    this->tenth_distanceTraveled += diff;
 
     // If traveled a mile
     if (this->distanceTraveled > 1625.0) {
@@ -33,11 +34,20 @@ void Helicopter::update(double dt) {
       std::string message = this->getName() + " has traveled " +
                             std::to_string(++mileCounter) + " miles";
       this->notifyObservers(message);
-      DataManager::getInstance().updateDistance(*this);
 
       // Reset distance traveled this mile
       this->distanceTraveled = 0;
     }
+
+    // if traveled one tenth of a mile
+    if (this->tenth_distanceTraveled > 162.5) {
+      // Increment tenth_mile
+      DataManager::getInstance().updateDistance(*this);
+
+      // Reset distance traveled this tenth_mile
+      this->tenth_distanceTraveled = 0;
+    }
+
   } else {
     if (movement) delete movement;
     Vector3 dest;

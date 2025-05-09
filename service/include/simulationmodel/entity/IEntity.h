@@ -122,6 +122,8 @@ class IEntity : public IPublisher {
   int id = -1;
   JsonObject details;
   double distanceTraveled = 0;
+  double tenth_distanceTraveled = 0;
+  unsigned int tenth_mileCounter = 0;
   unsigned int mileCounter = 0;
   Vector3 lastPosition;
   Vector3 position;

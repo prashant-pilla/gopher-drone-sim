@@ -57,7 +57,7 @@ class DataManager : public IPublisher {
    * @brief Constructor
    */
   DataManager() {
-    data = {{"Total packages delivered: ", "0"}, {"Entity ID", "Name", "Distance Traveled (miles)"}};
+    data = {{"Total packages delivered:", "0"}, {"Entity ID", "Name", "Distance Traveled (miles)"}};
   }
   /**
    * @brief Destructor

@@ -70,14 +70,15 @@ void Drone::update(double dt) {
 
     // Update distance traveled
     this->distanceTraveled += diff;
+    this->tenth_distanceTraveled += diff;
 
-    // If traveled a mile
-    if (this->distanceTraveled > 1625.0) {
-      // Increment mile
+    // if traveled one tenth of a mile
+    if (this->tenth_distanceTraveled > 162.5) {
+      // Increment tenth_mile
       DataManager::getInstance().updateDistance(*this);
 
-      // Reset distance traveled this mile
-      this->distanceTraveled = 0;
+      // Reset distance traveled this tenth_mile
+      this->tenth_distanceTraveled = 0;
     }
 
     if (toPackage->isCompleted()) {
