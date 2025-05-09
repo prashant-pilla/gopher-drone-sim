@@ -32,7 +32,8 @@ void DataManager::writeToFile() {
 }
 
 void DataManager::addEntityToData(IEntity& entity) {
-  std::vector<std::string> newRow = {std::to_string(entity.getId()),entity.getName(), "0"};
+  std::vector<std::string> newRow = {std::to_string(entity.getId()),
+                                     entity.getName(), "0"};
   data.push_back(newRow);
 }
 
@@ -51,16 +52,16 @@ void DataManager::addEntityToData(IEntity& entity) {
 void DataManager::updateDistance(IEntity& entity) {
   for (int row = 1; row < data.size(); row++) {
     if (data[row][0] == std::to_string(entity.getId())) {
-        float miles = std::stof(data[row][2]);
-        miles += 0.1;
-        data[row][2] = std::to_string(miles);
-        return;
+      float miles = std::stof(data[row][2]);
+      miles += 0.1;
+      data[row][2] = std::to_string(miles);
+      return;
     }
   }
   this->addEntityToData(entity);
 }
 
 void DataManager::updatePackageCount() {
-  int count = std::stoi(data[0][1]);                        
-  data[0][1] = std::to_string(++count);    
+  int count = std::stoi(data[0][1]);
+  data[0][1] = std::to_string(++count);
 }

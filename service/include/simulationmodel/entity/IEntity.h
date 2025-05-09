@@ -3,11 +3,11 @@
 
 #include <vector>
 
+#include "DataManager.h"
 #include "Graph.h"
 #include "IPublisher.h"
 #include "math/vector3.h"
 #include "util/json.h"
-#include "DataManager.h"
 
 class SimulationModel;
 

@@ -38,7 +38,7 @@ class DataManager : public IPublisher {
    */
   void writeToFile();
   /**
-   * @brief Enter/update distance traveled of Entity
+   * @brief update distance traveled of Entity
    * @param entity IEntity object that we want to update distance of
    */
   void updateDistance(IEntity& entity);
@@ -57,7 +57,8 @@ class DataManager : public IPublisher {
    * @brief Constructor
    */
   DataManager() {
-    data = {{"Total packages delivered:", "0"}, {"Entity ID", "Name", "Distance Traveled (miles)"}};
+    data = {{"Total packages delivered:", "0"},
+            {"Entity ID", "Name", "Distance Traveled (miles)"}};
   }
   /**
    * @brief Destructor
