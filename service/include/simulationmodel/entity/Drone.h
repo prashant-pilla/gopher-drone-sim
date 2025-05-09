@@ -61,10 +61,12 @@ class Drone : public IEntity {
   bool available = false;
   bool pickedUp = false;
 
- private:
+  protected:
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;
+
+  private:
 };
 
 #endif

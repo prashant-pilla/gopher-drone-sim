@@ -1,10 +1,29 @@
 #include "DroneFactory.h"
+#include "LeaderDrone.h"
+#include "HelperDrone.h"
 
 IEntity* DroneFactory::createEntity(const JsonObject& entity) {
   std::string type = entity["type"];
+
   if (type.compare("drone") == 0) {
     std::cout << "Drone Created" << std::endl;
-    return new DroneColorDecorator(new Drone(entity), 0, 0, 100);
+
+    Drone* baseDrone = nullptr;
+    
+    if (entity.contains("role")) {
+      std::string role = entity["role"];
+      if (role == "leader") {
+        baseDrone = new LeaderDrone(entity);
+      } else if (role == "helper") {
+        baseDrone = new HelperDrone(entity);
+      }
+    }
+
+    if (!baseDrone) {
+      baseDrone = new Drone(entity);
+    }
+
+    return new DroneColorDecorator(baseDrone, 0, 0, 100);  
   }
   return nullptr;
 }

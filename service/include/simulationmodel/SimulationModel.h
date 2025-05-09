@@ -12,6 +12,8 @@
 #include "IEntity.h"
 #include "IObserver.h"
 #include "Robot.h"
+#include "LeaderDrone.h"
+#include "HelperDrone.h"
 
 //--------------------  Model ----------------------------
 
@@ -47,6 +49,12 @@ class SimulationModel : public IObserver {
   IEntity* createEntity(const JsonObject& entity);
 
   /**
+   * @brief Adds observers as required if helper or leader drone
+   * @param entity Type IEntity* contain the entity to be checked and add observers to
+   **/
+  void linkDroneObservers(IEntity* entity);
+
+  /**
    * @brief Removes entity with given ID from the simulation
    *
    * @param id of the entity to be removed
@@ -79,7 +87,7 @@ class SimulationModel : public IObserver {
    */
   const routing::Graph* getGraph() const;
 
-  void notify(const std::string& message) const;
+  void notify(const std::string& message, void* data) const override;
 
   std::deque<Package*> scheduledDeliveries;
 

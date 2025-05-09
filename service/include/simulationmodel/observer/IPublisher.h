@@ -6,14 +6,15 @@
 
 #include "IObserver.h"
 
-class IPublisher {
- public:
-  virtual void addObserver(const IObserver* o);
-  virtual void removeObserver(const IObserver* o);
-  virtual void notifyObservers(const std::string& message);
+class IPublisher
+{
+public:
+  virtual void addObserver(const IObserver *o) = 0;
+  virtual void removeObserver(const IObserver *o) = 0;
+  virtual void notifyObservers(const std::string &message, void *data = nullptr) = 0;
 
- private:
-  std::set<const IObserver*> observers;
+protected:
+  std::set<const IObserver *> observers;
 };
 
-#endif  // IPUBLISHER_H_
+#endif // IPUBLISHER_H_

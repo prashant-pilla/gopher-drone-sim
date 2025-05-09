@@ -97,7 +97,15 @@ class TransitService : public JsonSession, public IController {
   void sendEventToView(const std::string& event, const JsonObject& details) {
     JsonObject eventData;
     eventData["event"] = event;
-    eventData["details"] = details;
+    if (event == "Notification") {
+      JsonObject styledDetails;
+      styledDetails["text"] = details["message"];
+      styledDetails["type"] = "system";
+      styledDetails["timestamp"] = details["timestamp"];
+      eventData["details"] = styledDetails;
+    } else {
+      eventData["details"] = details;
+    }
     sendMessage(eventData.toString());
   }
 
