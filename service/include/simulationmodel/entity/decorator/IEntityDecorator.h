@@ -15,6 +15,7 @@ class IEntityDecorator : public T {
   virtual void linkModel(SimulationModel* model) {
     return sub->linkModel(model);
   }
+  virtual SimulationModel* getModel() { return sub->getModel(); }
   virtual int getId() const { return sub->getId(); }
   virtual Vector3 getPosition() const { return sub->getPosition(); }
   virtual Vector3 getDirection() const { return sub->getDirection(); }
@@ -22,6 +23,7 @@ class IEntityDecorator : public T {
   virtual std::string getColor() const { return sub->getColor(); }
   virtual std::string getName() const { return sub->getName(); }
   virtual double getSpeed() const { return sub->getSpeed(); }
+  virtual void setSpeed(double speed) { sub->setSpeed(speed); }
   virtual void setPosition(Vector3 pos_) { return sub->setPosition(pos_); }
   virtual void setDirection(Vector3 dir_) { return sub->setDirection(dir_); }
   virtual void setColor(std::string col_) { return sub->setColor(col_); }

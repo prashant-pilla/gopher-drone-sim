@@ -46,6 +46,12 @@ class IEntity : public IPublisher {
   virtual void linkModel(SimulationModel* model);
 
   /**
+   * @brief Links this entity to a simulation model,
+   * @param[in] model The simulation model to link.
+   */
+  virtual SimulationModel* getModel();
+
+  /**
    * @brief Gets the ID of the entity.
    * @return The ID of the entity.
    */
@@ -86,6 +92,12 @@ class IEntity : public IPublisher {
    * @return The speed of the entity.
    */
   virtual double getSpeed() const;
+
+  /**
+   * @brief Sets the position of the entity.
+   * @param pos_ The desired position of the entity.
+   */
+  virtual void setSpeed(double speed_);
 
   /**
    * @brief Sets the position of the entity.
