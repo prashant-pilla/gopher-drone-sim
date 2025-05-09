@@ -24,7 +24,7 @@ IEntity* DroneFactory::createEntity(const JsonObject& entity) {
       baseDrone = new Drone(entity);
     }
 
-    return new DroneColorDecorator(baseDrone, 0, 0, 100);
+    return new DroneDamageDecorator(new DroneColorDecorator(baseDrone, 0, 0, 100));
   }
   return nullptr;
 }

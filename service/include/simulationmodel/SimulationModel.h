@@ -6,6 +6,7 @@
 #include <set>
 
 #include "CompositeFactory.h"
+#include "DataManager.h"
 #include "Drone.h"
 #include "Graph.h"
 #include "HelperDrone.h"
@@ -14,6 +15,7 @@
 #include "IObserver.h"
 #include "LeaderDrone.h"
 #include "Robot.h"
+#include "ShippingQueue.h"
 
 //--------------------  Model ----------------------------
 
@@ -65,9 +67,26 @@ class SimulationModel : public IObserver {
   /**
    * @brief Schedule a trip for an object in the scene
    * @param detail Type JsonObject contain the entity's reference to schedule
+   * @param priority string representing shipping priority of package
    *the detail of the trip being scheduled
    **/
-  void scheduleTrip(const JsonObject& details);
+  void scheduleTrip(const JsonObject& details, const std::string& priority);
+
+  /**
+   * @brief Change shipping priority of a package
+   * @param packageName name of the package to be altered
+   * @param priority New shipping priority
+   * @return boolean representing if package can be changed (if its already out
+   * for delivery)
+   */
+  bool changePackagePriority(const std::string& packageName,
+                             const std::string& priority);
+
+  /**
+   * @brief get queue info as a jsonobject
+   * @return queue info presented as a jsonobject
+   */
+  JsonObject getDeliveryQueueInfo();
 
   /**
    * @brief Update the simulation
@@ -91,6 +110,8 @@ class SimulationModel : public IObserver {
   void notify(const std::string& message, void* data) const override;
 
   std::deque<Package*> scheduledDeliveries;
+
+  ShippingQueue queue;
 
  protected:
   IController& controller;

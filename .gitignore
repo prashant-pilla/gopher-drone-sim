@@ -29,6 +29,9 @@
 *.out
 *.app
 
+# Statistics Export
+*.csv
+
 build
 docs/html
 docs/latex

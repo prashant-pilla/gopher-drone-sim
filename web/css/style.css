@@ -77,3 +77,101 @@ body {
   border-radius: 5px;
   background-color: black;
 }
+
+/* Enhanced UI for priority management */
+#change-priority-input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: rgba(50, 50, 50, 0.8);
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+#current-priority-info {
+  margin: 10px 0;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rgba(40, 40, 40, 0.8);
+}
+
+#current-priority {
+  font-weight: bold;
+}
+
+#priority-queue-info {
+  margin-top: 15px;
+  border-top: 1px solid #555;
+  padding-top: 10px;
+}
+
+#priority-queue-list {
+  margin-left: 20px;
+  padding-left: 0;
+}
+
+#priority-queue-list li {
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: rgba(40, 40, 40, 0.8);
+}
+
+/* Priority-specific styles */
+.priority-expedited,
+#notification-list li:contains("Expedited"),
+#current-priority.expedited,
+.queue-item-expedited {
+  border-color: #ff5555 !important;
+  color: #ff5555 !important;
+}
+
+.priority-norush,
+#notification-list li:contains("NoRush"),
+#current-priority.norush,
+.queue-item-norush {
+  border-color: #55ff55 !important;
+  color: #55ff55 !important;
+}
+
+.priority-standard,
+#notification-list li:contains("Standard"),
+#current-priority.standard,
+.queue-item-standard {
+  border-color: #5555ff !important;
+  color: #5555ff !important;
+}
+
+select,
+input {
+  margin: 5px 0;
+  padding: 3px;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 3px;
+}
+
+button {
+  margin: 5px 5px 5px 0;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #444;
+  color: white;
+  border: 1px solid #666;
+  border-radius: 3px;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+#change-priority-error,
+#schedule-error {
+  color: #ff5555;
+  font-size: 0.9em;
+  margin-top: 5px;
+}

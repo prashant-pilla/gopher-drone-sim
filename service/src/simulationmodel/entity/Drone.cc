@@ -20,11 +20,13 @@ Drone::~Drone() {
 }
 
 void Drone::getNextDelivery() {
-  if (model && model->scheduledDeliveries.size() > 0) {
-    package = model->scheduledDeliveries.front();
-    model->scheduledDeliveries.pop_front();
+  if (!model) return;
 
-    if (package) {
+  for (auto pkg : model->queue.packages) {
+    if (!pkg->isClaimed()) {
+      package = pkg;
+      package->claim();
+
       std::string message = getName() + " heading to: " + package->getName();
       notifyObservers(message);
       available = false;
@@ -52,6 +54,8 @@ void Drone::getNextDelivery() {
         toFinalDestination =
             new BeelineStrategy(packagePosition, finalDestination);
       }
+
+      return;
     }
   }
 }
@@ -61,13 +65,37 @@ void Drone::update(double dt) {
 
   if (toPackage) {
     toPackage->move(this, dt);
+    package->claim();
+
+    // Calculate how far it moved since last frame
+    double diff = this->lastPosition.dist(this->position);
+
+    // Update the position for next time
+    this->lastPosition = this->position;
+
+    // Update distance traveled
+    this->distanceTraveled += diff;
+    this->tenth_distanceTraveled += diff;
+
+    // if traveled one tenth of a mile
+    if (this->tenth_distanceTraveled > 162.5) {
+      // Increment tenth_mile
+      DataManager::getInstance().updateDistance(*this);
+
+      // Reset distance traveled this tenth_mile
+      this->tenth_distanceTraveled = 0;
+    }
 
     if (toPackage->isCompleted()) {
       std::string message = getName() + " picked up: " + package->getName();
       notifyObservers(message);
+      package->pickUp();
       delete toPackage;
       toPackage = nullptr;
       pickedUp = true;
+      DataManager::getInstance().updatePackageCount();
+      model->queue.removePackage();
+      std::cout << model->queue.packages.size() << std::endl;
     }
   } else if (toFinalDestination) {
     toFinalDestination->move(this, dt);

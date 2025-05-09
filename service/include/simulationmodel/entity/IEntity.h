@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "DataManager.h"
 #include "Graph.h"
 #include "IPublisher.h"
 #include "math/vector3.h"
@@ -43,6 +44,12 @@ class IEntity : public IPublisher {
    * @param[in] model The simulation model to link.
    */
   virtual void linkModel(SimulationModel* model);
+
+  /**
+   * @brief Links this entity to a simulation model,
+   * @param[in] model The simulation model to link.
+   */
+  virtual SimulationModel* getModel();
 
   /**
    * @brief Gets the ID of the entity.
@@ -90,6 +97,12 @@ class IEntity : public IPublisher {
    * @brief Sets the position of the entity.
    * @param pos_ The desired position of the entity.
    */
+  virtual void setSpeed(double speed_);
+
+  /**
+   * @brief Sets the position of the entity.
+   * @param pos_ The desired position of the entity.
+   */
   virtual void setPosition(Vector3 pos_);
 
   /**
@@ -120,6 +133,11 @@ class IEntity : public IPublisher {
   SimulationModel* model = nullptr;
   int id = -1;
   JsonObject details;
+  double distanceTraveled = 0;
+  double tenth_distanceTraveled = 0;
+  unsigned int tenth_mileCounter = 0;
+  unsigned int mileCounter = 0;
+  Vector3 lastPosition;
   Vector3 position;
   Vector3 direction;
   std::string color;
