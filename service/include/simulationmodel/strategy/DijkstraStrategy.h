@@ -1,8 +1,8 @@
 #ifndef DIJKSTRA_STRATEGY_H_
 #define DIJKSTRA_STRATEGY_H_
 
-#include "PathStrategy.h"
 #include "Graph.h"
+#include "PathStrategy.h"
 
 /**
  * @brief this class inhertis from the PathStrategy class and is responsible for

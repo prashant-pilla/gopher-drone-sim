@@ -10,9 +10,17 @@ const scheduleButton = $("#schedule-button")[0];
 const scheduleForm = $("#schedule-input")[0];
 const scheduleName = $("#schedule-name")[0] as HTMLInputElement;
 const scheduleStrategy = $("#search-strategy")[0] as HTMLSelectElement;
+const schedulePriority = $("#shipping-priority")[0] as HTMLSelectElement;
 const scheduleSubmit = $("#schedule-submit")[0];
 const scheduleError = $("#schedule-error")[0];
 const scheduleCancelButton = $("#schedule-cancel")[0];
+const changePriorityButton = $("#change-priority")[0];
+const changePriorityInput = $("#change-priority-input")[0];
+const changePrioritySubmit = $("#change-priority-submit")[0];
+const changePriorityCancel = $("#change-priority-cancel")[0];
+const changePriorityName = $("#change-priority-name")[0] as HTMLInputElement;
+const changePriorityValue = $("#change-priority-value")[0] as HTMLSelectElement;
+const changePriorityError = $("#change-priority-error")[0];
 
 let raycaster = new THREE.Raycaster();
 let beamGeometry = new THREE.CylinderGeometry(0.2, 0.2, 3000, 16, 1);
@@ -39,6 +47,7 @@ function initScheduler() {
   beamSelector2.visible = false;
   scene.add(beamSelector1, beamSelector2);
 
+  // Schedule Trip Button
   scheduleButton.onclick = () => {
     beamState = 1;
     scheduleButton.hidden = true;
@@ -51,6 +60,33 @@ function initScheduler() {
     beamSelector2.visible = false;
     scheduleButton.hidden = false;
     scheduleForm.hidden = true;
+  };
+
+  // Change Priority Button
+  changePriorityButton.onclick = () => {
+    changePriorityInput.hidden = !changePriorityInput.hidden;
+  };
+
+  changePrioritySubmit.onclick = () => {
+    if (!changePriorityName.value) {
+      changePriorityError.textContent = "Please enter a package name";
+      return;
+    }
+    
+    sendCommand("ChangePriority", {
+      packageName: changePriorityName.value,
+      priority: changePriorityValue.value
+    });
+    
+    changePriorityInput.hidden = true;
+    changePriorityName.value = "";
+    changePriorityError.textContent = "";
+  };
+
+  changePriorityCancel.onclick = () => {
+    changePriorityInput.hidden = true;
+    changePriorityName.value = "";
+    changePriorityError.textContent = "";
   };
 
   container.onmousedown = (click) => {
@@ -84,6 +120,7 @@ function initScheduler() {
   scheduleSubmit.onclick = () => {
     let name = scheduleName.value;
     let searchStrat = scheduleStrategy.value;
+    let priority = schedulePriority.value;
     scheduleError.innerHTML = "";
     if (name == "")
       scheduleError.innerHTML +=
@@ -122,6 +159,8 @@ function initScheduler() {
         radius: 1.0,
         rotation: [0, 0, 0, 0],
       });
+      
+      // Include priority in the scheduled trip
       sendCommand("ScheduleTrip", {
         name: name,
         start: [
@@ -134,7 +173,9 @@ function initScheduler() {
           beamSelector2.position.z * 14.2,
         ],
         search: searchStrat,
+        priority: priority, // Add priority to the command
       });
+      
       beamState = 0;
       beamSelector1.visible = false;
       beamSelector2.visible = false;
