@@ -35,6 +35,7 @@ void Package::initDelivery(Robot* owner) {
 }
 
 void Package::claim() { claimed = true; }
+void Package::unclaim() { claimed = false; }
 
 bool Package::isClaimed() { return claimed; }
 

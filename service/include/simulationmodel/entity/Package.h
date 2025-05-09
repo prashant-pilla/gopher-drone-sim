@@ -98,6 +98,10 @@ class Package : public IEntity {
   virtual void claim();
 
   /**
+   * @brief claim a package from other drones
+   */
+  virtual void unclaim();
+  /**
    * @brief pick up a package
    */
   virtual void pickUp();
