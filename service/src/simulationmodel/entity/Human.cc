@@ -24,6 +24,22 @@ void Human::update(double dt) {
       notifyObservers(message);
     }
     atKeller = nearKeller;
+    double diff = this->lastPosition.dist(this->position);
+
+    // Update the position for next time
+    this->lastPosition = this->position;
+
+    // Update distance traveled
+    this->distanceTraveled += diff;
+
+    // If traveled a mile
+    if (this->distanceTraveled > 1625.0) {
+      // Increment mile
+      DataManager::getInstance().updateDistance(*this);
+
+      // Reset distance traveled this mile
+      this->distanceTraveled = 0;
+    }
   } else {
     if (movement) delete movement;
     Vector3 dest;

@@ -8,6 +8,8 @@
 #include "IEntity.h"
 #include "IPublisher.h"
 
+class IEntity;
+
 /**
  * @class DataManager
  * @brief Data Manager class to track event-driven data. Only one instance
@@ -38,21 +40,25 @@ class DataManager : public IPublisher {
   /**
    * @brief Enter/update distance traveled of Entity
    * @param entity IEntity object that we want to update distance of
-   * @param dist double of newly acquired distance
    */
-  void updateDistance(IEntity& entity, double dist);
+  void updateDistance(IEntity& entity);
   /**
    * @brief Enter/update number of packages dropped of by an entity
    * @param entity IEntity object that we want to update package count of
    */
   void updatePackageCount(IEntity& entity);
+  /**
+   * @brief Enter entity into records
+   * @param entity IEntity object that we want to keep track of
+   */
+  void addEntityToData(IEntity& entity);
 
  private:
   /**
    * @brief Constructor
    */
   DataManager() {
-    data = {{"Entity Type", "Name", "Distance Traveled (miles)",
+    data = {{"Entity ID", "Name", "Distance Traveled (miles)",
              "Packages Delivered"}};
   }
   /**

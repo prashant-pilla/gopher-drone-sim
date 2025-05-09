@@ -31,8 +31,21 @@ void DataManager::writeToFile() {
   this->notifyObservers("Data successfully exported");
 }
 
-void DataManager::updateDistance(IEntity& entity, double dist) {
+void DataManager::addEntityToData(IEntity& entity) {
+  std::vector<std::string> newRow = {std::to_string(entity.getId()),entity.getName(), "0", "0"};
+  data.push_back(newRow);
+}
 
+void DataManager::updateDistance(IEntity& entity) {
+  for (int row = 1; row < data.size(); row++) {
+    if (data[row][0] == std::to_string(entity.getId())) {
+        int miles = std::stoi(data[row][2]);
+        miles += 1;
+        data[row][2] = std::to_string(miles);
+        return;
+    }
+  }
+  this->addEntityToData(entity);
 }
 
 void DataManager::updatePackageCount(IEntity& entity) {
