@@ -58,6 +58,7 @@ class TransitService : public JsonSession, public IController {
       model.stop();
     } else if (cmd == "writeStats") {
       // handle data collection here
+      DataManager::getInstance().writeToFile();
     }
   }
 

@@ -6,6 +6,7 @@
 #include <set>
 
 #include "CompositeFactory.h"
+#include "DataManager.h"
 #include "Drone.h"
 #include "Graph.h"
 #include "IController.h"

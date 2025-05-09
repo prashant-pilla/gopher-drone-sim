@@ -18,9 +18,6 @@ class Helicopter : public IEntity {
 
  private:
   IStrategy* movement = nullptr;
-  double distanceTraveled = 0;
-  unsigned int mileCounter = 0;
-  Vector3 lastPosition;
 };
 
 #endif
