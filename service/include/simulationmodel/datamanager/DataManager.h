@@ -43,10 +43,9 @@ class DataManager : public IPublisher {
    */
   void updateDistance(IEntity& entity);
   /**
-   * @brief Enter/update number of packages dropped of by an entity
-   * @param entity IEntity object that we want to update package count of
+   * @brief Update total number of packages delivered
    */
-  void updatePackageCount(IEntity& entity);
+  void updatePackageCount();
   /**
    * @brief Enter entity into records
    * @param entity IEntity object that we want to keep track of
@@ -58,8 +57,7 @@ class DataManager : public IPublisher {
    * @brief Constructor
    */
   DataManager() {
-    data = {{"Entity ID", "Name", "Distance Traveled (miles)",
-             "Packages Delivered"}};
+    data = {{"Total packages delivered: ", "0"}, {"Entity ID", "Name", "Distance Traveled (miles)"}};
   }
   /**
    * @brief Destructor

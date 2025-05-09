@@ -24,6 +24,8 @@ void Human::update(double dt) {
       notifyObservers(message);
     }
     atKeller = nearKeller;
+
+    // Calculate how far it moved since last frame
     double diff = this->lastPosition.dist(this->position);
 
     // Update the position for next time

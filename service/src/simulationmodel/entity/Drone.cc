@@ -62,12 +62,31 @@ void Drone::update(double dt) {
   if (toPackage) {
     toPackage->move(this, dt);
 
+    // Calculate how far it moved since last frame
+    double diff = this->lastPosition.dist(this->position);
+
+    // Update the position for next time
+    this->lastPosition = this->position;
+
+    // Update distance traveled
+    this->distanceTraveled += diff;
+
+    // If traveled a mile
+    if (this->distanceTraveled > 1625.0) {
+      // Increment mile
+      DataManager::getInstance().updateDistance(*this);
+
+      // Reset distance traveled this mile
+      this->distanceTraveled = 0;
+    }
+
     if (toPackage->isCompleted()) {
       std::string message = getName() + " picked up: " + package->getName();
       notifyObservers(message);
       delete toPackage;
       toPackage = nullptr;
       pickedUp = true;
+      DataManager::getInstance().updatePackageCount();
     }
   } else if (toFinalDestination) {
     toFinalDestination->move(this, dt);
