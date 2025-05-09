@@ -1,13 +1,13 @@
 #ifndef PACKAGE_H
 #define PACKAGE_H
 
-#include <vector>
 #include <string>
+#include <vector>
 
 #include "IEntity.h"
+#include "PriorityShippingState.h"
 #include "math/vector3.h"
 #include "util/json.h"
-#include "PriorityShippingState.h"
 
 class Robot;
 
@@ -77,34 +77,34 @@ class Package : public IEntity {
   /**
    * @brief Gets the priority level of the package
    * @return int representing prioirty level
-  */
+   */
   virtual int getPriorityLevel() const;
 
   /**
    * @brief Gets a pointer to the priority state
    * @return pointer to the priority state
-  */
+   */
   virtual PriorityShippingState* getPriorityState() const;
 
   /**
    * @brief sets the priority level of the package
    * @param level int representing desired priority level
-  */
+   */
   virtual void setPriority(const std::string& priority);
 
   /**
    * @brief claim a package from other drones
-  */
+   */
   virtual void claim();
 
   /**
    * @brief pick up a package
-  */
+   */
   virtual void pickUp();
 
   /**
    * @brief checks if a package is claimed
-  */
+   */
   virtual bool isClaimed();
 
  protected:

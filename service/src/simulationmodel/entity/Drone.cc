@@ -39,18 +39,23 @@ void Drone::getNextDelivery() {
 
       std::string strat = package->getStrategyName();
       if (strat == "astar") {
-        toFinalDestination = new AstarStrategy(packagePosition, finalDestination, model->getGraph());
+        toFinalDestination = new AstarStrategy(
+            packagePosition, finalDestination, model->getGraph());
       } else if (strat == "dfs") {
-        toFinalDestination = new DfsStrategy(packagePosition, finalDestination, model->getGraph());
+        toFinalDestination = new DfsStrategy(packagePosition, finalDestination,
+                                             model->getGraph());
       } else if (strat == "bfs") {
-        toFinalDestination = new BfsStrategy(packagePosition, finalDestination, model->getGraph());
+        toFinalDestination = new BfsStrategy(packagePosition, finalDestination,
+                                             model->getGraph());
       } else if (strat == "dijkstra") {
-        toFinalDestination = new DijkstraStrategy(packagePosition, finalDestination, model->getGraph());
+        toFinalDestination = new DijkstraStrategy(
+            packagePosition, finalDestination, model->getGraph());
       } else {
-        toFinalDestination = new BeelineStrategy(packagePosition, finalDestination);
+        toFinalDestination =
+            new BeelineStrategy(packagePosition, finalDestination);
       }
 
-      return; 
+      return;
     }
   }
 }

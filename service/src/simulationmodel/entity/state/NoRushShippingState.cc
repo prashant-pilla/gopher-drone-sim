@@ -1,5 +1,3 @@
 #include "NoRushShippingState.h"
 
-std::string NoRushShippingState::getName() {
-    return "NoRush";
-}
+std::string NoRushShippingState::getName() { return "NoRush"; }

@@ -5,7 +5,7 @@
 #include "OBJParser.h"
 #include "SimulationModel.h"
 #include "WebServer.h"
-//#include "ShippingStateFactory.h"
+// #include "ShippingStateFactory.h"
 #include "Package.h"
 
 //--------------------  Controller ----------------------------
@@ -30,7 +30,7 @@ class TransitService : public JsonSession, public IController {
         std::string path = data["filePath"];
         model.setGraph(routing::OBJGraphParser(path));
       } else if (cmd == "ScheduleTrip") {
-        std::string priority = "Standard"; // Default priority
+        std::string priority = "Standard";  // Default priority
         if (data.contains("priority")) {
           priority = std::string(data["priority"]);
         }
@@ -40,11 +40,13 @@ class TransitService : public JsonSession, public IController {
           std::string packageName = data["packageName"];
           std::string priority = data["priority"];
           bool success = model.changePackagePriority(packageName, priority);
-          
+
           if (!success) {
-            notify("Could not change priority for " + packageName + ". Package may be picked up already or does not exist.");
+            notify("Could not change priority for " + packageName +
+                   ". Package may be picked up already or does not exist.");
           } else {
-            notify(packageName + "has had their priority changed to " + priority);
+            notify(packageName + "has had their priority changed to " +
+                   priority);
           }
         }
       } else if (cmd == "GetDeliveryQueue") {
@@ -53,11 +55,11 @@ class TransitService : public JsonSession, public IController {
         sendEventToView("DeliveryQueueInfo", queueInfo);
       } else if (cmd == "AddDrones") {
         // Add more drones if needed
-        int count = 1; // Default to 1 drone
+        int count = 1;  // Default to 1 drone
         if (data.contains("count")) {
           count = static_cast<int>(data["count"]);
         }
-        //model.addDrones(count);
+        // model.addDrones(count);
       } else if (cmd == "ping") {
         if (data.contains("message"))
           std::cout << std::string(data["message"]) << std::endl;
@@ -91,8 +93,9 @@ class TransitService : public JsonSession, public IController {
         model.stop();
       }
     } catch (const std::exception& e) {
-      std::cerr << "Error handling command " << cmd << ": " << e.what() << std::endl;
-      
+      std::cerr << "Error handling command " << cmd << ": " << e.what()
+                << std::endl;
+
       // Create an error response
       JsonObject errorDetails;
       errorDetails["command"] = cmd;
@@ -117,7 +120,7 @@ class TransitService : public JsonSession, public IController {
     details["dir"] = dir;
     std::string col_ = entity.getColor();
     if (col_ != "") details["color"] = col_;
-    
+
     // For packages, include priority info if available
     if (const Package* package = dynamic_cast<const Package*>(&entity)) {
       if (package->getPriorityState()) {
@@ -126,7 +129,7 @@ class TransitService : public JsonSession, public IController {
       }
       details["isPickedUp"] = !package->requiresDelivery();
     }
-    
+
     sendEventToView(event, details);
   }
 

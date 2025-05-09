@@ -1,18 +1,15 @@
 #include "Package.h"
 
-#include "Robot.h"
-
-#include "PriorityShippingState.h"
-
-#include "NoRushShippingState.h"
-
-#include "StandardShippingState.h"
-
-#include "ExpeditedShippingState.h"
-
 #include <string>
 
-Package::Package(const JsonObject& obj, const std::string& priority) : IEntity(obj) {
+#include "ExpeditedShippingState.h"
+#include "NoRushShippingState.h"
+#include "PriorityShippingState.h"
+#include "Robot.h"
+#include "StandardShippingState.h"
+
+Package::Package(const JsonObject& obj, const std::string& priority)
+    : IEntity(obj) {
   setPriority(priority);
 }
 
@@ -33,21 +30,15 @@ void Package::update(double dt) {}
 void Package::initDelivery(Robot* owner) {
   this->owner = owner;
   owner->requestedDelivery = false;
-  //requiresDelivery_ = false;
+  // requiresDelivery_ = false;
   destination = owner->getPosition();
 }
 
-void Package::claim() {
-  claimed = true;
-}
+void Package::claim() { claimed = true; }
 
-bool Package::isClaimed() {
-  return claimed;
-}
+bool Package::isClaimed() { return claimed; }
 
-void Package::pickUp() {
-  requiresDelivery_ = false;
-}
+void Package::pickUp() { requiresDelivery_ = false; }
 
 void Package::handOff() {
   if (owner) {

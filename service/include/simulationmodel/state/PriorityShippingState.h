@@ -5,19 +5,19 @@
 
 /**
  * @brief Priority Shipping State Interface
-*/
+ */
 class PriorityShippingState {
-    public:
-        /**
-         * @brief Destructor for Priority Shipping State class
-        */
-       virtual ~PriorityShippingState() {}
+ public:
+  /**
+   * @brief Destructor for Priority Shipping State class
+   */
+  virtual ~PriorityShippingState() {}
 
-        /**
-         * @brief Gets the priority value of the current package
-         * @return int value representing priority level
-        */
-       virtual std::string getName() = 0;
+  /**
+   * @brief Gets the priority value of the current package
+   * @return int value representing priority level
+   */
+  virtual std::string getName() = 0;
 };
 
 #endif

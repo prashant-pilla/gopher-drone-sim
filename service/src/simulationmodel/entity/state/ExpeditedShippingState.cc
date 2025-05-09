@@ -1,5 +1,3 @@
 #include "ExpeditedShippingState.h"
 
-std::string ExpeditedShippingState::getName() {
-    return "Expedited";
-}
+std::string ExpeditedShippingState::getName() { return "Expedited"; }

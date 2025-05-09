@@ -66,14 +66,16 @@ class SimulationModel : public IObserver {
    * @brief Change shipping priority of a package
    * @param packageName name of the package to be altered
    * @param priority New shipping priority
-   * @return boolean representing if package can be changed (if its already out for delivery)
-  */
-  bool changePackagePriority(const std::string& packageName, const std::string& priority);
+   * @return boolean representing if package can be changed (if its already out
+   * for delivery)
+   */
+  bool changePackagePriority(const std::string& packageName,
+                             const std::string& priority);
 
   /**
    * @brief get queue info as a jsonobject
    * @return queue info presented as a jsonobject
-  */
+   */
   JsonObject getDeliveryQueueInfo();
 
   /**

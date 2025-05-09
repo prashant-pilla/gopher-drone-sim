@@ -1,5 +1,3 @@
 #include "StandardShippingState.h"
 
-std::string StandardShippingState::getName() {
-    return "Standard";
-}
+std::string StandardShippingState::getName() { return "Standard"; }
