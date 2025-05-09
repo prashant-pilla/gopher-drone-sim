@@ -114,7 +114,6 @@ void Drone::update(double dt) {
       package = nullptr;
       available = true;
       pickedUp = false;
-      model->queue.removePackage();
     }
   }
 }

@@ -9,7 +9,6 @@ class DroneDamageDecorator : public DroneDecorator {
   double accum = 0;
   double durability = 100;
   double base_speed;
-
  public:
   DroneDamageDecorator(Drone* d);
   void update(double dt);

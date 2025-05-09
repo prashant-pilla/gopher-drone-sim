@@ -1,8 +1,8 @@
 #ifndef WIND_FACTORY_H_
 #define WIND_FACTORY_H_
 
-#include "IEntityFactory.h"
 #include "WeatherControl.h"
+#include "IEntityFactory.h"
 
 /**
  *@brief Wind Factory to produce WeatherControl class.

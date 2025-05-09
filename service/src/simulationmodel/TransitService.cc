@@ -95,6 +95,7 @@ class TransitService : public JsonSession, public IController {
       else if (cmd == "writeStats") {
       // handle data collection here
       DataManager::getInstance().writeToFile();
+      }
     } catch (const std::exception& e) {
       std::cerr << "Error handling command " << cmd << ": " << e.what()
                 << std::endl;

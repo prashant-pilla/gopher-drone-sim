@@ -25,7 +25,7 @@ IEntity::~IEntity() {}
 
 void IEntity::linkModel(SimulationModel* model) { this->model = model; }
 
-SimulationModel* IEntity::getModel() { return model; }
+SimulationModel* IEntity::getModel() {return model;}
 
 int IEntity::getId() const { return id; }
 
