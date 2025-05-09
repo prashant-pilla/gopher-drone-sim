@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "DataManager.h"
 #include "Graph.h"
 #include "IPublisher.h"
 #include "math/vector3.h"
@@ -132,6 +133,11 @@ class IEntity : public IPublisher {
   SimulationModel* model = nullptr;
   int id = -1;
   JsonObject details;
+  double distanceTraveled = 0;
+  double tenth_distanceTraveled = 0;
+  unsigned int tenth_mileCounter = 0;
+  unsigned int mileCounter = 0;
+  Vector3 lastPosition;
   Vector3 position;
   Vector3 direction;
   std::string color;

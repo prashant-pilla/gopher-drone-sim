@@ -30,6 +30,7 @@ let packageQueue: PackageInfo[] = [];
 
 const container = $("#scene-container")[0];
 const simSpeedSlider = $("#sim-speed");
+const writeStatsButton = $("#write-stats")[0];
 const stopSimulationButton = $("#stop-simulation")[0];
 const addHumanButton = $("#add-human")[0];
 const addDroneButton = $("#add-drone")[0];
@@ -61,6 +62,10 @@ stopSimulationButton.onclick = () => {
   sendCommand("stopSimulation", {});
   disconnect();
 };
+
+writeStatsButton.onclick = () => {
+  sendCommand("writeStats", {});
+}
 
 let humanID = 1;
 addHumanButton.onclick = () => {

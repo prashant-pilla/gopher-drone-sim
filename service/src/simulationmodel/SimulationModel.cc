@@ -17,6 +17,7 @@ SimulationModel::SimulationModel(IController& controller)
   entityFactory.addFactory(new HumanFactory());
   entityFactory.addFactory(new WindFactory());
   entityFactory.addFactory(new HelicopterFactory());
+  DataManager::getInstance().addObserver(this);
 }
 
 SimulationModel::~SimulationModel() {
