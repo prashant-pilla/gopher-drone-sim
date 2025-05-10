@@ -65,7 +65,6 @@ void Drone::update(double dt) {
 
   if (toPackage) {
     toPackage->move(this, dt);
-    package->claim();
 
     // Calculate how far it moved since last frame
     double diff = this->lastPosition.dist(this->position);
@@ -94,7 +93,6 @@ void Drone::update(double dt) {
       toPackage = nullptr;
       pickedUp = true;
       DataManager::getInstance().updatePackageCount();
-      model->queue.removePackage();
       std::cout << model->queue.packages.size() << std::endl;
     }
   } else if (toFinalDestination) {
@@ -111,10 +109,10 @@ void Drone::update(double dt) {
       delete toFinalDestination;
       toFinalDestination = nullptr;
       package->handOff();
+      model->queue.removePackage(package);
       package = nullptr;
       available = true;
       pickedUp = false;
-      model->queue.removePackage();
     }
   }
 }

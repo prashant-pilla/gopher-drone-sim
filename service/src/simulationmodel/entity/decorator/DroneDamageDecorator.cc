@@ -42,6 +42,9 @@ void DroneDamageDecorator::update(double dt) {
     // drone broke :(
     // throw package back in queue and let it handle itself.
     sub->notifyObservers("Drone broke");
+    if (!sub->getPackage()) {
+      std::cout << "package not found" << std::endl;
+    }
     if (sub->getPackage()) {
       sub->getPackage()->unclaim();
     }

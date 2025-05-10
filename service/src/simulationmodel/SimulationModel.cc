@@ -167,7 +167,7 @@ void SimulationModel::removeFromSim(int id) {
     //   }
     // }
     if (Package* p = dynamic_cast<Package*>(entity)) {
-      queue.removePackage();
+      queue.removePackage(p);
     }
     controller.removeEntity(*entity);
     entities.erase(id);

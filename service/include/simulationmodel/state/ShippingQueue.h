@@ -24,10 +24,10 @@ class ShippingQueue {
   void addPackage(Package* pkg);
 
   /**
-   * @brief remove and return package at front of queue
-   * @retval pointer to package to be removed from front of queue
+   * @brief remove desired package
+   * @param pkg pointer to package to be removed from front of queue
    */
-  void removePackage();
+  void removePackage(Package* pkg);
 
   /**
    * @brief update the priority of a package

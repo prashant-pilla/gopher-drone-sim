@@ -36,7 +36,11 @@ void Package::initDelivery(Robot* owner) {
 
 void Package::claim() { claimed = true; }
 
-void Package::unclaim() { claimed = false; }
+void Package::unclaim() { 
+  std::cout << "drone unclaimed" << std::endl;
+  claimed = false; 
+  requiresDelivery_ = true;
+}
 
 bool Package::isClaimed() { return claimed; }
 

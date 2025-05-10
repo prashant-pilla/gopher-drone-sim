@@ -9,9 +9,11 @@ void ShippingQueue::addPackage(Package* pkg) {
   ShippingQueue::sortQueue();
 }
 
-void ShippingQueue::removePackage() {
-  Package* front = packages.front();
-  packages.erase(packages.begin());
+void ShippingQueue::removePackage(Package* pkg) {
+  auto it = std::find(packages.begin(), packages.end(), pkg);
+  if (it != packages.end()) {
+    packages.erase(it);
+  }
 }
 
 void ShippingQueue::updatePackage(Package* pkg, const std::string& priority) {
