@@ -62,6 +62,7 @@ IEntity *SimulationModel::createEntity(const JsonObject &entity) {
     entities[myNewEntity->getId()] = myNewEntity;
     // Add the simulation model as a observer to myNewEntity
     myNewEntity->addObserver(this);
+    DataManager::getInstance().addEntityToData(*myNewEntity);
   }
 
   return myNewEntity;
