@@ -7,12 +7,16 @@
 void ShippingQueue::addPackage(Package* pkg) {
   packages.push_back(pkg);
   ShippingQueue::sortQueue();
+  ShippingQueue::printQueue();
 }
 
-void ShippingQueue::removePackage() {
-  Package* front = packages.front();
-  packages.erase(packages.begin());
+void ShippingQueue::removePackage(Package* pkg) {
+  auto it = std::find(packages.begin(), packages.end(), pkg);
+  if (it != packages.end()) {
+    packages.erase(it);
+  }
 }
+
 
 void ShippingQueue::updatePackage(Package* pkg, const std::string& priority) {
   ShippingQueue::sortQueue();
@@ -23,4 +27,13 @@ void ShippingQueue::sortQueue() {
                    [](Package* a, Package* b) {
                      return a->getPriorityLevel() > b->getPriorityLevel();
                    });
+}
+
+void ShippingQueue::printQueue() const {
+  std::cout << "Current package queue (sorted by priority):" << std::endl;
+  for (const Package* pkg : packages) {
+    std::string priorityName = pkg->getPriorityState()->getName();
+    std::cout << "- " << pkg->getName()
+              << " [Priority: " << priorityName << "]" << std::endl;
+  }
 }

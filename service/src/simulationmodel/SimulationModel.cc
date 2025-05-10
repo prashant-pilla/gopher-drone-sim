@@ -93,8 +93,8 @@ void SimulationModel::scheduleTrip(const JsonObject &details,
   Package *package = nullptr;
 
   for (auto &[id, entity] : entities) {
-    std::cout << "Name + _package: " << name << "_package" << std::endl;
-    std::cout << "Entity->getName(): " << entity->getName() << std::endl;
+    //std::cout << "Name + _package: " << name << "_package" << std::endl;
+    //std::cout << "Entity->getName(): " << entity->getName() << std::endl;
 
     if (name + "_package" == entity->getName()) {
       if (Package *p = dynamic_cast<Package *>(entity)) {
@@ -112,7 +112,7 @@ void SimulationModel::scheduleTrip(const JsonObject &details,
     package->setStrategyName(strategyName);
     package->setPriority(priority);
     queue.addPackage(package);
-    std::cout << "package added" << std::endl;
+    std::cout << "package added: " << package->getName() << std::endl;
     std::cout << queue.packages.size() << std::endl;
     // scheduledDeliveries.push_back(package);
     controller.sendEventToView("DeliveryScheduled", details);
@@ -195,7 +195,7 @@ void SimulationModel::removeFromSim(int id) {
     //   }
     // }
     if (Package *p = dynamic_cast<Package *>(entity)) {
-      queue.removePackage();
+      queue.removePackage(p);
     }
     controller.removeEntity(*entity);
     entities.erase(id);

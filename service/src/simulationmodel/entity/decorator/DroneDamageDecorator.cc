@@ -40,8 +40,13 @@ void DroneDamageDecorator::update(double dt) {
 
   if (durability <= 0) {
     // drone broke :(
+    std::cout << "drone died" << std::endl;
     sub->notifyObservers("Drone broke");
+    if (!sub->getPackage()) {
+      std::cout << "package not found" << std::endl;
+    }
     if (sub->getPackage()) {
+      std::cout << "package being unclaimed" << std::endl;
       sub->getPackage()->unclaim();
     }
   }
