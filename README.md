@@ -122,4 +122,4 @@ Sprint Retrospective:
     UML:
 
         Priority Queue:
-            <img width="1680" alt="PriorityQueueUML" src="https://github.umn.edu/umn-csci-3081w-s25/team-010-30-finalproject/assets/32438/8930b8c0-6a25-488f-8616-fa2434aece35">
+            ![Priority Queue UML](PriorityQueueUML.png)
