@@ -91,10 +91,9 @@ class TransitService : public JsonSession, public IController {
         std::cout << "Stop command administered\n";
         stopped = true;
         model.stop();
-      }
-      else if (cmd == "writeStats") {
-      // handle data collection here
-      DataManager::getInstance().writeToFile();
+      } else if (cmd == "writeStats") {
+        // handle data collection here
+        DataManager::getInstance().writeToFile();
       }
     } catch (const std::exception& e) {
       std::cerr << "Error handling command " << cmd << ": " << e.what()

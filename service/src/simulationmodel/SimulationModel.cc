@@ -70,9 +70,8 @@ IEntity *SimulationModel::createEntity(const JsonObject &entity) {
 void SimulationModel::removeEntity(int id) { removed.insert(id); }
 
 /// Schedules a Delivery for an object in the scene
-void SimulationModel::scheduleTrip(const JsonObject& details,
-                                   const std::string& priority) {
-
+void SimulationModel::scheduleTrip(const JsonObject &details,
+                                   const std::string &priority) {
   std::string name = details["name"];
   JsonArray start = details["start"];
   JsonArray end = details["end"];
@@ -93,7 +92,7 @@ void SimulationModel::scheduleTrip(const JsonObject& details,
 
   Package *package = nullptr;
 
-  for (auto& [id, entity] : entities) {
+  for (auto &[id, entity] : entities) {
     std::cout << "Name + _package: " << name << "_package" << std::endl;
     std::cout << "Entity->getName(): " << entity->getName() << std::endl;
 
@@ -120,18 +119,17 @@ void SimulationModel::scheduleTrip(const JsonObject& details,
   }
 }
 
-
-bool SimulationModel::changePackagePriority(const std::string& packageName,
-                                            const std::string& priority) {
+bool SimulationModel::changePackagePriority(const std::string &packageName,
+                                            const std::string &priority) {
   std::cout << "target package: " << packageName << std::endl;
   std::cout << "request priority: " << priority << std::endl;
   if (queue.packages.size() == 0) {
     std::cout << "queue is empty" << std::endl;
   }
-  for (const Package* pkg : queue.packages) {
+  for (const Package *pkg : queue.packages) {
     std::cout << "package name: " << pkg->getName() << std::endl;
     if (pkg->getName() == packageName) {
-      const_cast<Package*>(pkg)->setPriority(priority);
+      const_cast<Package *>(pkg)->setPriority(priority);
       std::cout << "new priority: " << pkg->getPriorityState()->getName()
                 << std::endl;
       queue.sortQueue();
@@ -145,7 +143,7 @@ bool SimulationModel::changePackagePriority(const std::string& packageName,
 JsonObject SimulationModel::getDeliveryQueueInfo() {
   JsonObject queueInfo;
   JsonArray queueArray;
-  for (const Package* pkg : queue.packages) {
+  for (const Package *pkg : queue.packages) {
     JsonObject packageInfo;
     packageInfo["id"] = pkg->getId();
     packageInfo["name"] = pkg->getName();
@@ -157,8 +155,7 @@ JsonObject SimulationModel::getDeliveryQueueInfo() {
   return queueInfo;
 }
 
-const routing::Graph* SimulationModel::getGraph() const { return graph; }
-
+const routing::Graph *SimulationModel::getGraph() const { return graph; }
 
 void SimulationModel::setGraph(const routing::Graph *graph) {
   if (this->graph) delete this->graph;
@@ -185,9 +182,8 @@ void SimulationModel::update(double dt) {
 void SimulationModel::stop(void) {}
 
 void SimulationModel::removeFromSim(int id) {
-
   std::cout << "removing something" << std::endl;
-  IEntity* entity = entities[id];
+  IEntity *entity = entities[id];
 
   if (entity) {
     // for (auto i = scheduledDeliveries.begin(); i !=
@@ -198,7 +194,7 @@ void SimulationModel::removeFromSim(int id) {
     //     break;
     //   }
     // }
-    if (Package* p = dynamic_cast<Package*>(entity)) {
+    if (Package *p = dynamic_cast<Package *>(entity)) {
       queue.removePackage();
     }
     controller.removeEntity(*entity);
