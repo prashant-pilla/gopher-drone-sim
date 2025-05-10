@@ -24,8 +24,8 @@ class ShippingQueue {
   void addPackage(Package* pkg);
 
   /**
-   * @brief remove desired package
-   * @param pkg pointer to package to be removed from front of queue
+   * @brief remove designated package from queue
+   * @param pkg pointer to package to be removed
    */
   void removePackage(Package* pkg);
 
@@ -40,6 +40,11 @@ class ShippingQueue {
    * @brief sort queue by priority
    */
   void sortQueue();
+
+  /**
+   * @brief print packages in queue by order
+   */
+  void printQueue() const;
 
   std::vector<Package*> packages;
 };

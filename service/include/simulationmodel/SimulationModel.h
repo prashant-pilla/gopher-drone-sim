@@ -9,9 +9,11 @@
 #include "DataManager.h"
 #include "Drone.h"
 #include "Graph.h"
+#include "HelperDrone.h"
 #include "IController.h"
 #include "IEntity.h"
 #include "IObserver.h"
+#include "LeaderDrone.h"
 #include "Robot.h"
 #include "ShippingQueue.h"
 
@@ -47,6 +49,13 @@ class SimulationModel : public IObserver {
    *which entity to create
    **/
   IEntity* createEntity(const JsonObject& entity);
+
+  /**
+   * @brief Adds observers as required if helper or leader drone
+   * @param entity Type IEntity* contain the entity to be checked and add
+   *observers to
+   **/
+  void linkDroneObservers(IEntity* entity);
 
   /**
    * @brief Removes entity with given ID from the simulation
@@ -98,7 +107,7 @@ class SimulationModel : public IObserver {
    */
   const routing::Graph* getGraph() const;
 
-  void notify(const std::string& message) const;
+  void notify(const std::string& message, void* data) const override;
 
   std::deque<Package*> scheduledDeliveries;
 
