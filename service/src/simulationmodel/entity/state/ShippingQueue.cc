@@ -17,7 +17,6 @@ void ShippingQueue::removePackage(Package* pkg) {
   }
 }
 
-
 void ShippingQueue::updatePackage(Package* pkg, const std::string& priority) {
   ShippingQueue::sortQueue();
 }
@@ -33,7 +32,7 @@ void ShippingQueue::printQueue() const {
   std::cout << "Current package queue (sorted by priority):" << std::endl;
   for (const Package* pkg : packages) {
     std::string priorityName = pkg->getPriorityState()->getName();
-    std::cout << "- " << pkg->getName()
-              << " [Priority: " << priorityName << "]" << std::endl;
+    std::cout << "- " << pkg->getName() << " [Priority: " << priorityName << "]"
+              << std::endl;
   }
 }

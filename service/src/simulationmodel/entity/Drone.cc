@@ -22,7 +22,7 @@ Drone::~Drone() {
 void Drone::getNextDelivery() {
   if (!model) return;
 
-  //model->queue.printQueue();
+  // model->queue.printQueue();
 
   for (auto pkg : model->queue.packages) {
     if (!pkg->isClaimed()) {
@@ -68,7 +68,7 @@ void Drone::update(double dt) {
 
   if (toPackage) {
     toPackage->move(this, dt);
-    //package->claim();
+    // package->claim();
 
     // Calculate how far it moved since last frame
     double diff = this->lastPosition.dist(this->position);

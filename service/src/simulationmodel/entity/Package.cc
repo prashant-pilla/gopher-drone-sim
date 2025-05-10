@@ -34,14 +34,14 @@ void Package::initDelivery(Robot* owner) {
   destination = owner->getPosition();
 }
 
-void Package::claim() { 
+void Package::claim() {
   std::cout << "package claimed" << std::endl;
-  claimed = true; 
+  claimed = true;
 }
 
-void Package::unclaim() { 
+void Package::unclaim() {
   std::cout << "package unclaimed" << std::endl;
-  claimed = false; 
+  claimed = false;
   requiresDelivery_ = true;
 }
 

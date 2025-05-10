@@ -43,7 +43,7 @@ class ShippingQueue {
 
   /**
    * @brief print packages in queue by order
-  */
+   */
   void printQueue() const;
 
   std::vector<Package*> packages;

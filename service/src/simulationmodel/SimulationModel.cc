@@ -93,8 +93,8 @@ void SimulationModel::scheduleTrip(const JsonObject &details,
   Package *package = nullptr;
 
   for (auto &[id, entity] : entities) {
-    //std::cout << "Name + _package: " << name << "_package" << std::endl;
-    //std::cout << "Entity->getName(): " << entity->getName() << std::endl;
+    // std::cout << "Name + _package: " << name << "_package" << std::endl;
+    // std::cout << "Entity->getName(): " << entity->getName() << std::endl;
 
     if (name + "_package" == entity->getName()) {
       if (Package *p = dynamic_cast<Package *>(entity)) {
