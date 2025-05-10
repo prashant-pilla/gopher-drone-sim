@@ -117,9 +117,7 @@ Sprint Retrospective:
 
         Better understand code given before beginning work.
 
-    Jira Board:
+Jira Board:
 
-    UML:
+![Priority Queue UML](PriorityQueueUML.png)
 
-        Priority Queue:
-            ![Priority Queue UML](PriorityQueueUML.png)
