@@ -29,7 +29,7 @@ void DroneDamageDecorator::update(double dt) {
 
   notifyObservers(std::to_string(durability) + "\% durability");
   if (mag > 20) {
-    durability -= mag / 50.0;
+    durability -= mag / 200;
     double n_speed = base_speed * (durability / 100);
     // capped speed loss, when it allowed it to go to 0, it was hard to watch
     // lol
