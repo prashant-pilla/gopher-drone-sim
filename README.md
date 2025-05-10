@@ -119,5 +119,7 @@ Sprint Retrospective:
 
 Jira Board:
 
+UMLs:
+
 ![Priority Queue UML](PriorityQueueUML.png)
 
