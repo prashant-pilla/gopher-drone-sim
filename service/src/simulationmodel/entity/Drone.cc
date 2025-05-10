@@ -26,11 +26,13 @@ void Drone::getNextDelivery() {
 
   for (auto pkg : model->queue.packages) {
     if (!pkg->isClaimed()) {
+      model->queue.removePackage(pkg);
       std::cout << "claiming package: " << pkg->getName() << std::endl;
       package = pkg;
       package->claim();
 
       std::string message = getName() + " heading to: " + package->getName();
+      std::cout << this->getPackage() << std::endl;
       notifyObservers(message);
       available = false;
       pickedUp = false;

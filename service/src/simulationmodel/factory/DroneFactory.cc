@@ -14,8 +14,10 @@ IEntity* DroneFactory::createEntity(const JsonObject& entity) {
     if (entity.contains("role")) {
       std::string role = entity["role"];
       if (role == "leader") {
+        std::cout << "Made a leader" << std::endl;
         baseDrone = new LeaderDrone(entity);
       } else if (role == "helper") {
+        std::cout << "Made a helper" << std::endl;
         baseDrone = new HelperDrone(entity);
       }
     }
@@ -24,8 +26,8 @@ IEntity* DroneFactory::createEntity(const JsonObject& entity) {
       baseDrone = new Drone(entity);
     }
 
-    return new DroneDamageDecorator(
-        new DroneColorDecorator(baseDrone, 0, 0, 100));
+    return new DroneColorDecorator(
+        new DroneDamageDecorator(baseDrone), 0, 0, 100);
   }
   return nullptr;
 }

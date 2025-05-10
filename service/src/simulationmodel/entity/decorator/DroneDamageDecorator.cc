@@ -28,7 +28,6 @@ void DroneDamageDecorator::update(double dt) {
   double mag = wind.magnitude();
 
   notifyObservers(std::to_string(durability) + "\% durability");
-
   if (mag > 20) {
     durability -= mag / 50.0;
     double n_speed = base_speed * (durability / 100);
@@ -41,13 +40,14 @@ void DroneDamageDecorator::update(double dt) {
   if (durability <= 0) {
     // drone broke :(
     std::cout << "drone died" << std::endl;
-    sub->notifyObservers("Drone broke");
     if (!sub->getPackage()) {
       std::cout << "package not found" << std::endl;
     }
-    if (sub->getPackage()) {
+    if (getPackage()) {
       std::cout << "package being unclaimed" << std::endl;
-      sub->getPackage()->unclaim();
+      getPackage()->unclaim();
+      sub->getModel()->queue.addPackage(sub->getPackage());
     }
+    return;
   }
 }

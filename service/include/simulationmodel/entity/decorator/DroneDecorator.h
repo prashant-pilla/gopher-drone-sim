@@ -1,5 +1,5 @@
-#ifndef PACKAGE_DECORATOR_H_
-#define PACKAGE_DECORATOR_H_
+#ifndef DRONE_DECORATOR_H_
+#define DRONE_DECORATOR_H_
 
 #include "Drone.h"
 #include "IEntityDecorator.h"
