@@ -107,7 +107,7 @@ class SimulationModel : public IObserver {
    */
   const routing::Graph* getGraph() const;
 
-  void notify(const std::string& message, void* data) const override;
+  void notify(const std::string& message) const;
 
   std::deque<Package*> scheduledDeliveries;
 

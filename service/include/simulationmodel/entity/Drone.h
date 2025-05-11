@@ -38,7 +38,7 @@ class Drone : public IEntity {
   /**
    * @brief Returns package it has assigned
    */
-  Package* getPackage();
+  virtual Package* getPackage();
 
   /**
    * @brief Updates the drone's position

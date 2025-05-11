@@ -29,8 +29,13 @@ void DroneDamageDecorator::update(double dt) {
 
   notifyObservers(std::to_string(durability) + "\% durability");
 
-  if (mag > 20) {
-    durability -= mag / 50.0;
+  return;
+  if (mag > 40) {
+    //take static 0.25% damage per second in sufficiently high winds
+    //value set low, and does not scale with mag for the sake of making 
+    //sure that drones lose battery faster than they take damage
+    durability -= 0.25;
+
     double n_speed = base_speed * (durability / 100);
     // capped speed loss, when it allowed it to go to 0, it was hard to watch
     // lol
@@ -41,13 +46,14 @@ void DroneDamageDecorator::update(double dt) {
   if (durability <= 0) {
     // drone broke :(
     std::cout << "drone died" << std::endl;
-    sub->notifyObservers("Drone broke");
     if (!sub->getPackage()) {
       std::cout << "package not found" << std::endl;
     }
-    if (sub->getPackage()) {
+    if (getPackage()) {
       std::cout << "package being unclaimed" << std::endl;
-      sub->getPackage()->unclaim();
+      getPackage()->unclaim();
+      sub->getModel()->queue.addPackage(sub->getPackage());
     }
+    return;
   }
 }

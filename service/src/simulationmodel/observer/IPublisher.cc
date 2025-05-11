@@ -4,6 +4,6 @@ void IPublisher::addObserver(const IObserver* o) { observers.insert(o); }
 
 void IPublisher::removeObserver(const IObserver* o) { observers.erase(o); }
 
-void IPublisher::notifyObservers(const std::string& message, void* data) {
-  for (auto& o : observers) o->notify(message, data);
+void IPublisher::notifyObservers(const std::string& message) {
+  for (auto& o : observers) o->notify(message);
 }

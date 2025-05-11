@@ -51,7 +51,13 @@
         </div>
         <div>
           <button type="button" id="add-human">Add Human</button><br>
-          <button type="button" id="add-drone">Add Drone</button><br>
+          <label for="drone-role">Drone Role:</label>
+    <select id="drone-role">
+      <option value="leader" selected>Leader</option>
+      <option value="helper">Helper</option>
+    </select>
+    <br>
+    <button type="button" title="Adds a new drone" id="add-drone">Add Drone</button><br>
           <button type="button" id="write-stats">Send Stats to CSV</button><br>
           <button type="button" id="change-priority">Manage Priorities</button>
           <div id="change-priority-input" hidden="true">
