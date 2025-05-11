@@ -75,6 +75,78 @@
   {
     "command": "CreateEntity",
     "params": {
+      "type": "drone",
+      "name": "Drone",
+      "role": "leader",
+      "mesh": "assets/model/drone.glb",
+      "position": [478.292, 270, -228.623],
+      "scale": [0.1, 0.1, 0.1],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 30.0,
+      "radius": 1.0,
+      "start": 2.0,
+      "duration": 2.0,
+      "offset": [0, 0.6, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "drone",
+      "name": "Drone",
+      "role": "helper",
+      "mesh": "assets/model/drone.glb",
+      "position": [498.292, 270, -238.623],
+      "scale": [0.1, 0.1, 0.1],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 30.0,
+      "radius": 1.0,
+      "start": 2.0,
+      "duration": 2.0,
+      "offset": [0, 0.6, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "drone",
+      "name": "Drone",
+      "role": "helper",
+      "mesh": "assets/model/drone.glb",
+      "position": [488.292, 270, -238.623],
+      "scale": [0.1, 0.1, 0.1],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 30.0,
+      "radius": 1.0,
+      "start": 2.0,
+      "duration": 2.0,
+      "offset": [0, 0.6, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "drone",
+      "name": "Drone",
+      "role": "helper",
+      "mesh": "assets/model/drone.glb",
+      "position": [478.292, 270, -218.623],
+      "scale": [0.1, 0.1, 0.1],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 30.0,
+      "radius": 1.0,
+      "start": 2.0,
+      "duration": 2.0,
+      "offset": [0, 0.6, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
       "type": "helicopter",
       "name": "Helicopter",
       "mesh": "assets/model/helicopter.glb",
