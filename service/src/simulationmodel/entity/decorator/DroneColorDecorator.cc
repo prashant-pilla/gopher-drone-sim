@@ -45,7 +45,7 @@ void DroneColorDecorator::update(double dt) {
           ((sub->getPosition() - p->getPosition()).magnitude() / distToPackage);
       setColor(60 * percentage, 100, 50);
     } else if (sub->pickedUp) {
-      //std::cout << sub->getPackage();
+      // std::cout << sub->getPackage();
       double percentage =
           1 - ((sub->getPosition() - p->getDestination()).magnitude() /
                distToDestination);
