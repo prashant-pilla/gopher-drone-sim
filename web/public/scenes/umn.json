@@ -10,8 +10,16 @@
       "texture": "assets/texture/umn.png",
       "groundTexture": "assets/texture/umn.png-ground.png",
       "color": "#cccccc",
-      "position": [-1.5, -13, -1.5],
-      "scale": [0.05, 0.05, 0.05]
+      "position": [
+        -1.5,
+        -13,
+        -1.5
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
     }
   },
   {
@@ -19,8 +27,16 @@
     "params": {
       "type": "route",
       "mesh": "assets/model/routes.obj",
-      "position": [-0.0, -12.8, -0.0],
-      "scale": [0.0705, 0.05, 0.0705],
+      "position": [
+        -0.0,
+        -12.8,
+        -0.0
+      ],
+      "scale": [
+        0.0705,
+        0.05,
+        0.0705
+      ],
       "color": "#ff00e1"
     }
   },
@@ -37,15 +53,36 @@
       "name": "Drone",
       "role": "leader",
       "mesh": "assets/model/drone.glb",
-      "position": [498.292, 270, -228.623],
-      "scale": [0.1, 0.1, 0.1],
-      "rotation": [0, 0, 0, 0],
-      "direction": [1, 0, 0],
+      "position": [
+        498.292,
+        270,
+        -228.623
+      ],
+      "scale": [
+        0.1,
+        0.1,
+        0.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
       "speed": 30.0,
       "radius": 1.0,
       "start": 2.0,
       "duration": 2.0,
-      "offset": [0, 0.6, 0]
+      "offset": [
+        0,
+        0.6,
+        0
+      ]
     }
   },
   {
@@ -55,69 +92,36 @@
       "name": "Drone",
       "role": "helper",
       "mesh": "assets/model/drone.glb",
-      "position": [498.292, 270, -228.623],
-      "scale": [0.1, 0.1, 0.1],
-      "rotation": [0, 0, 0, 0],
-      "direction": [1, 0, 0],
+      "position": [
+        498.292,
+        270,
+        -228.623
+      ],
+      "scale": [
+        0.1,
+        0.1,
+        0.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
       "speed": 30.0,
       "radius": 1.0,
       "start": 2.0,
       "duration": 2.0,
-      "offset": [0, 0.6, 0]
-    }
-  },
-  {
-    "command": "CreateEntity",
-    "params": {
-      "type": "drone",
-      "name": "Drone",
-      "role": "helper",
-      "mesh": "assets/model/drone.glb",
-      "position": [498.292, 270, -228.623],
-      "scale": [0.1, 0.1, 0.1],
-      "rotation": [0, 0, 0, 0],
-      "direction": [1, 0, 0],
-      "speed": 30.0,
-      "radius": 1.0,
-      "start": 2.0,
-      "duration": 2.0,
-      "offset": [0, 0.6, 0]
-    }
-  },
-  {
-    "command": "CreateEntity",
-    "params": {
-      "type": "drone",
-      "name": "Drone",
-      "role": "helper",
-      "mesh": "assets/model/drone.glb",
-      "position": [498.292, 270, -228.623],
-      "scale": [0.1, 0.1, 0.1],
-      "rotation": [0, 0, 0, 0],
-      "direction": [1, 0, 0],
-      "speed": 30.0,
-      "radius": 1.0,
-      "start": 2.0,
-      "duration": 2.0,
-      "offset": [0, 0.6, 0]
-    }
-  },
-  {
-    "command": "CreateEntity",
-    "params": {
-      "type": "drone",
-      "name": "Drone",
-      "role": "leader",
-      "mesh": "assets/model/drone.glb",
-      "position": [498.292, 270, -228.623],
-      "scale": [0.1, 0.1, 0.1],
-      "rotation": [0, 0, 0, 0],
-      "direction": [1, 0, 0],
-      "speed": 30.0,
-      "radius": 1.0,
-      "start": 2.0,
-      "duration": 2.0,
-      "offset": [0, 0.6, 0]
+      "offset": [
+        0,
+        0.6,
+        0
+      ]
     }
   },
   {
@@ -126,15 +130,36 @@
       "type": "human",
       "name": "Human-OG",
       "mesh": "assets/model/human.glb",
-      "position": [498.292, 270, -228.623],
-      "scale": [0.005, 0.005, 0.005],
-      "rotation": [0, 0, 0, 0],
-      "direction": [1, 0, 0],
+      "position": [
+        498.292,
+        270,
+        -228.623
+      ],
+      "scale": [
+        0.005,
+        0.005,
+        0.005
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
       "speed": 10.0,
       "radius": 1.0,
       "start": 2.0,
       "duration": 2.0,
-      "offset": [0, -0.5, 0]
+      "offset": [
+        0,
+        -0.5,
+        0
+      ]
     }
   },
   {
@@ -142,79 +167,11 @@
     "params": {
       "type": "WeatherControl",
       "name": "Weather",
-      "position": [0, 0, 0]
-    }
-  },
-  {
-    "command": "CreateEntity",
-    "params": {
-      "type": "drone",
-      "name": "Drone",
-      "role": "leader",
-      "mesh": "assets/model/drone.glb",
-      "position": [478.292, 270, -228.623],
-      "scale": [0.1, 0.1, 0.1],
-      "rotation": [0, 0, 0, 0],
-      "direction": [1, 0, 0],
-      "speed": 30.0,
-      "radius": 1.0,
-      "start": 2.0,
-      "duration": 2.0,
-      "offset": [0, 0.6, 0]
-    }
-  },
-  {
-    "command": "CreateEntity",
-    "params": {
-      "type": "drone",
-      "name": "Drone",
-      "role": "helper",
-      "mesh": "assets/model/drone.glb",
-      "position": [498.292, 270, -238.623],
-      "scale": [0.1, 0.1, 0.1],
-      "rotation": [0, 0, 0, 0],
-      "direction": [1, 0, 0],
-      "speed": 30.0,
-      "radius": 1.0,
-      "start": 2.0,
-      "duration": 2.0,
-      "offset": [0, 0.6, 0]
-    }
-  },
-  {
-    "command": "CreateEntity",
-    "params": {
-      "type": "drone",
-      "name": "Drone",
-      "role": "helper",
-      "mesh": "assets/model/drone.glb",
-      "position": [488.292, 270, -238.623],
-      "scale": [0.1, 0.1, 0.1],
-      "rotation": [0, 0, 0, 0],
-      "direction": [1, 0, 0],
-      "speed": 30.0,
-      "radius": 1.0,
-      "start": 2.0,
-      "duration": 2.0,
-      "offset": [0, 0.6, 0]
-    }
-  },
-  {
-    "command": "CreateEntity",
-    "params": {
-      "type": "drone",
-      "name": "Drone",
-      "role": "helper",
-      "mesh": "assets/model/drone.glb",
-      "position": [478.292, 270, -218.623],
-      "scale": [0.1, 0.1, 0.1],
-      "rotation": [0, 0, 0, 0],
-      "direction": [1, 0, 0],
-      "speed": 30.0,
-      "radius": 1.0,
-      "start": 2.0,
-      "duration": 2.0,
-      "offset": [0, 0.6, 0]
+      "position": [
+        0,
+        0,
+        0
+      ]
     }
   },
   {
@@ -223,12 +180,33 @@
       "type": "helicopter",
       "name": "Helicopter",
       "mesh": "assets/model/helicopter.glb",
-      "position": [498.292, 550, -228.623],
-      "scale": [0.025, 0.025, 0.025],
-      "rotation": [0, 0, 0, 0],
-      "direction": [1, 0, 0],
+      "position": [
+        498.292,
+        550,
+        -228.623
+      ],
+      "scale": [
+        0.025,
+        0.025,
+        0.025
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
       "speed": 50.0,
-      "offset": [0, 1.5, 0]
+      "offset": [
+        0,
+        1.5,
+        0
+      ]
     }
   }
 ]

@@ -89,11 +89,31 @@ Requirements:
       IF the drone is damaged it SHALL move slower.
 
       IF the drone's health/durability is depeleted, it SHALL stop moving 
+
+    Data Collection Manager
+
+        The Data Manager will keep track of system events.
+
+	The Data Manager will store relevant operational data.
+
+        The Data Manager will only have one instance.
+
+        WHEN the "Write stats to CSV File" is pressed by the user, a CSV will be created storing the collected data.
+
+        WHEN the data is exported successfully for analysis, the data manager will notify the front end.
+
+        IF the data export fails, the front end will be notified.
+
 Design:
 
     Priority Queue: Adds to delivery features through State design pattern, allowing for each package in delivery queue to have a shipping priority state and queue to be organized by these priorities. State design chosen for this feature because state pattern allows packages to alter their behavior (delivery order) after the internal state changes (shipping priority). Allows seamless switching of shipping priority prior to delivery logic starting (for complexity purposes drones commit to a package and cannot switch between packages prior to pick up).
 
     Weather Control: Adds a global wind through the Singleton design pattern. This pattern was used so that each drone could access the same information, and that the wind was constant for all entities. The drones interactions with the weather system are done through a decorator to allow new functionality without changing the original base class' funcitonality.  
+
+    Data Manager: The data manager adds the ability to track the distance entities have traveled and the total number of packages delivered in the simulation. It utilizes the observer pattern
+    for front end notifications and, more importantly, implements the singleton design pattern so there is only one instance of the data manager existing at any given moment. The singleton
+    pattern was chosen because all data needs to be stored in the same place.
+
 
 
 Sprint Retrospective:
@@ -137,4 +157,9 @@ Jira Board:
 UMLs:
 
 ![Priority Queue UML](PriorityQueueUML.png)
+
 ![Weather Control](WeatherControl.png)
+
+![Data Manager UML](DataManagerUML.png)
+
+
