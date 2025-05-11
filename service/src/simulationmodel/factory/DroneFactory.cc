@@ -15,8 +15,16 @@ IEntity* DroneFactory::createEntity(const JsonObject& entity) {
       std::string role = entity["role"];
       if (role == "leader") {
         baseDrone = new LeaderDrone(entity);
+        leaders.push_back(dynamic_cast<LeaderDrone*>(baseDrone));
+        for (auto ele : helpers){
+          baseDrone->addObserver(dynamic_cast<IObserver*>(ele));
+        }
       } else if (role == "helper") {
         baseDrone = new HelperDrone(entity);
+        helpers.push_back(dynamic_cast<HelperDrone*>(baseDrone));
+        for (auto ele : leaders){
+          ele->addObserver(dynamic_cast<IObserver*>(baseDrone));
+        }
       }
     }
 
