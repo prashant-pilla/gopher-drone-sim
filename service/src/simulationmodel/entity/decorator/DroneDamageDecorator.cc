@@ -29,7 +29,6 @@ void DroneDamageDecorator::update(double dt) {
 
   notifyObservers(std::to_string(durability) + "\% durability");
 
-  return;
   if (mag > 40) {
     // take static 0.25% damage per second in sufficiently high winds
     // value set low, and does not scale with mag for the sake of making
