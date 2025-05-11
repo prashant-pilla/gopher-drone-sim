@@ -58,10 +58,14 @@ IEntity *SimulationModel::createEntity(const JsonObject &entity) {
   IEntity *myNewEntity = nullptr;
   if (myNewEntity = entityFactory.createEntity(entity)) {
     // Call AddEntity to add it to the view
-    linkDroneObservers(myNewEntity);
     myNewEntity->linkModel(this);
     controller.addEntity(*myNewEntity);
     entities[myNewEntity->getId()] = myNewEntity;
+    linkDroneObservers(myNewEntity);
+    for (auto &[id, existing] : entities) {
+      if (existing == myNewEntity) continue;
+      linkDroneObservers(existing);
+    }
     // Add the simulation model as a observer to myNewEntity
     myNewEntity->addObserver(this);
     DataManager::getInstance().addEntityToData(*myNewEntity);

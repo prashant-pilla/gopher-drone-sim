@@ -28,7 +28,7 @@ void DroneDamageDecorator::update(double dt) {
   double mag = wind.magnitude();
 
   notifyObservers(std::to_string(durability) + "\% durability");
-
+  return;
   if (mag > 20) {
     durability -= mag / 50.0;
     double n_speed = base_speed * (durability / 100);
