@@ -176,6 +176,8 @@ Sprint Retrospective:
 
 Jira Board:
 
+![Jira Board](JiraBoard.png)
+
 UMLs:
 
 ![Priority Queue UML](PriorityQueueUML.png)
