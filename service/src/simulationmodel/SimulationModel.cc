@@ -31,11 +31,11 @@ SimulationModel::~SimulationModel() {
 void SimulationModel::linkDroneObservers(IEntity *entity) {
   // Link new helpers to existing leaders
   if (auto helper = dynamic_cast<HelperDrone *>(entity)) {
-    for (auto& [_, e] : entities) {
-      if (auto leader = dynamic_cast<LeaderDrone*>(e)) {
-      leader->addObserver(helper);
-      std::cout << "[Link] helper " << helper->getId()
-                << " -> leader " << leader->getId() << "\n";
+    for (auto &[_, e] : entities) {
+      if (auto leader = dynamic_cast<LeaderDrone *>(e)) {
+        leader->addObserver(helper);
+        std::cout << "[Link] helper " << helper->getId() << " -> leader "
+                  << leader->getId() << "\n";
       }
     }
   }

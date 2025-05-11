@@ -7,9 +7,9 @@
 HelperDrone::HelperDrone(const JsonObject &obj) : Drone(obj) {}
 
 void HelperDrone::notify(const std::string &message) const {
-  std::cout << "helper " << getId() << " notify called with request as " << currentRequest << "\n";
   if (message == "HANDOFF_REQUEST" && isAvailable()) {
-    std::cout << "[Helper] " << getId() << " heard handoff\n";
+    std::cout << "[Helper] " << getId()
+              << " heard handoff with request: " << currentRequest << "\n";
     auto *request = currentRequest;
     if (!request) return;
     // Calculate 3D distance using existing drone position
@@ -22,6 +22,7 @@ void HelperDrone::notify(const std::string &message) const {
 }
 
 void HelperDrone::acceptHandoff(Package *package) {
+  std::cout << "helper accepting handoff\n";
   this->package = package;
   available = false;
 

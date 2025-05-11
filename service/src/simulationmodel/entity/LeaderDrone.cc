@@ -36,9 +36,15 @@ void LeaderDrone::update(double dt) {
       request.bestHelper->acceptHandoff(package);
       request.bestHelper->update(0.0);
 
-      if (toPackage) {delete toPackage; toPackage = nullptr;}
-      if (toFinalDestination) {delete toFinalDestination; toFinalDestination = nullptr;}
-      toPackage = new BeelineStrategy(getPosition(), Vector3 {0, 0, 0});
+      if (toPackage) {
+        delete toPackage;
+        toPackage = nullptr;
+      }
+      if (toFinalDestination) {
+        delete toFinalDestination;
+        toFinalDestination = nullptr;
+      }
+      toPackage = new BeelineStrategy(getPosition(), Vector3{0, 0, 0});
       std::cout << "leader going home";
 
       returnToRechargeStation();
@@ -53,7 +59,8 @@ void LeaderDrone::initiateHandoff() {
     IPublisher::notifyObservers("HANDOFF_REQUEST");
 
     if (request.bestHelper) {
-      std::cout << "[Leader] assigning helper" << request.bestHelper->getId() << "\n";
+      std::cout << "[Leader] assigning helper" << request.bestHelper->getId()
+                << "\n";
       if (model) {
         std::string msg =
             "HelperDrone " + std::to_string(request.bestHelper->getId()) +
@@ -71,7 +78,9 @@ void LeaderDrone::initiateHandoff() {
 void LeaderDrone::updateBattery(double dt) {
   // Battery drain rate (1% per second)
   battery -= dt * 1.0f;
-  if (battery < 0.0f) {battery = 0.0f;}
+  if (battery < 0.0f) {
+    battery = 0.0f;
+  }
 }
 
 void LeaderDrone::returnToRechargeStation() {
@@ -81,7 +90,8 @@ void LeaderDrone::returnToRechargeStation() {
     handoffTriggered = false;
     handoffLogged = false;
     std::cout << "[Leader] Recharged to 100%\n";
-    delete toPackage; toPackage = nullptr;
+    delete toPackage;
+    toPackage = nullptr;
   } else {
     toPackage = new BeelineStrategy(getPosition(), home);
   }
