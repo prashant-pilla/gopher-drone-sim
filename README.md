@@ -188,6 +188,9 @@ UMLs:
 
 ![Weather Control](WeatherControl.png)
 
+![Multi-drone Coordination](https://github.umn.edu/umn-csci-3081w-s25/team-010-30-finalproject/assets/28985/9e83b596-d228-4cde-bdc3-8e7d6d2d6603)
+
+
 ![Data Manager UML](DataManagerUML.png)
 
 
