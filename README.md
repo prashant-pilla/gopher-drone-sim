@@ -25,9 +25,9 @@ base, so you can omit classes that are irrelevant to your feature(s).
 
 Team Number: 30
 
-Names: Xander Hill, Casey Paulson
+Names: Xander Hill, Casey Paulson, Prashant Pilla, Ryan Hale
 
-x500s: hill1594, paul1401
+x500s: hill1594, paul1401, pilla146, hale0206
 
 Overview: Simulation of package delivery and various entity movement in UMN campus. Entities such as drones, humans, helicopters move around map. Deliveries for packages can be scheduled and drones will pick them up from origin and deliver to target destination.
 
@@ -90,6 +90,26 @@ Requirements:
 
       IF the drone's health/durability is depeleted, it SHALL stop moving 
 
+
+    Multi-drone Coordination:
+
+        WHEN a LeaderDrone’s battery falls below 20% AND it is carrying a package, THEN it SHALL broadcast a HANDOFF_REQUEST to all HelperDrones.
+
+        WHEN multiple HelperDrones receive a HANDOFF_REQUEST, THEN ONLY the nearest available HelperDrone SHALL accept the request.
+
+        A HelperDrone SHALL NOT accept a handoff if it is currently handling another delivery.
+
+        WHEN a HelperDrone accepts the handoff, THEN the original LeaderDrone SHALL clear its delivery state and autonomously return to its recharge station at (64, 254, -210).
+
+        WHEN the LeaderDrone arrives within 1 m of the station, THEN it SHALL reset its battery to 100% and become available for new deliveries.
+
+        WHEN a LeaderDrone broadcasts a handoff, THEN display "LeaderDrone <ID> requesting handoff".
+
+        WHEN a HelperDrone accepts, THEN display "HelperDrone <ID> accepted handoff for LeaderDrone <ID>".
+
+        WHEN a LeaderDrone dies or recharges,THEN display appropriate system notification.
+
+
     Data Collection Manager
 
         The Data Manager will keep track of system events.
@@ -109,6 +129,8 @@ Design:
     Priority Queue: Adds to delivery features through State design pattern, allowing for each package in delivery queue to have a shipping priority state and queue to be organized by these priorities. State design chosen for this feature because state pattern allows packages to alter their behavior (delivery order) after the internal state changes (shipping priority). Allows seamless switching of shipping priority prior to delivery logic starting (for complexity purposes drones commit to a package and cannot switch between packages prior to pick up).
 
     Weather Control: Adds a global wind through the Singleton design pattern. This pattern was used so that each drone could access the same information, and that the wind was constant for all entities. The drones interactions with the weather system are done through a decorator to allow new functionality without changing the original base class' funcitonality.  
+
+    Multi-drone Coordination: Notifies all helper drones using Observer pattern. This pattern was used specifically because the observer pattern was already implemented to help notify observers. I added all helper drones to be observers and linked them to the leader drones so that they receive notifications whenever a handoff is requested. I also built on the existing factory pattern used to create entities and modified that so that roles were assigned to drones when created. Integrated the drone factory to also work with frond end in order to add more helper and leader drones via the front end. The factory pattern was helpful as it extends the general create entity method from the entity interface without needing indivdual declarations for all entities.
 
     Data Manager: The data manager adds the ability to track the distance entities have traveled and the total number of packages delivered in the simulation. It utilizes the observer pattern
     for front end notifications and, more importantly, implements the singleton design pattern so there is only one instance of the data manager existing at any given moment. The singleton
