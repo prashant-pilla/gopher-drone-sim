@@ -15,6 +15,8 @@ import { initScheduler } from "./tripScheduler";
 import { notify } from "./notifications";
 import { randFloat, randInt } from "three/src/math/MathUtils.js";
 
+const droneRoleSelect = document.getElementById("drone-role") as HTMLSelectElement;
+
 // Define interfaces for package information
 interface PackageInfo {
   id: number;
@@ -92,9 +94,11 @@ addDroneButton.onclick = () => {
   var position = [498.292, 270, -228.623];
   position[0] += randFloat(-10, 10);
   position[2] += randFloat(-10, 10);
+  const role = droneRoleSelect.value;
   sendCommand("CreateEntity", {
     type: "drone",
-    name: "drone-" + droneID,
+    role: role,
+    name: role + " drone-" + droneID,
     mesh: "assets/model/drone.glb",
     position: position,
     scale: [0.1, 0.1, 0.1],

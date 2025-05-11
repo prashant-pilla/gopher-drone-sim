@@ -28,8 +28,14 @@ void DroneDamageDecorator::update(double dt) {
   double mag = wind.magnitude();
 
   notifyObservers(std::to_string(durability) + "\% durability");
-  if (mag > 20) {
-    durability -= mag / 200;
+
+  return;
+  if (mag > 40) {
+    //take static 0.25% damage per second in sufficiently high winds
+    //value set low, and does not scale with mag for the sake of making 
+    //sure that drones lose battery faster than they take damage
+    durability -= 0.25;
+
     double n_speed = base_speed * (durability / 100);
     // capped speed loss, when it allowed it to go to 0, it was hard to watch
     // lol

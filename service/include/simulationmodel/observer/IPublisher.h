@@ -10,8 +10,7 @@ class IPublisher {
  public:
   virtual void addObserver(const IObserver *o);
   virtual void removeObserver(const IObserver *o);
-  virtual void notifyObservers(const std::string &message,
-                               void *data = nullptr);
+  virtual void notifyObservers(const std::string &message);
 
  protected:
   std::set<const IObserver *> observers;
