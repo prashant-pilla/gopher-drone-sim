@@ -94,7 +94,7 @@ Requirements:
 
         The Data Manager will keep track of system events.
 
-	    The Data Manager will store relevant operational data.
+	The Data Manager will store relevant operational data.
 
         The Data Manager will only have one instance.
 
@@ -157,4 +157,6 @@ Jira Board:
 UMLs:
 
 ![Priority Queue UML](PriorityQueueUML.png)
+
+![Data Manager UML](DataManagerUML.png)
 
