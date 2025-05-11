@@ -13,6 +13,7 @@ class LeaderDrone : public Drone {
   void returnToRechargeStation();
   bool handoffTriggered = false;
   bool handoffLogged = false;
+  bool returningHome = false;
 
   void addObserver(IObserver* o) { publisher_.addObserver(o); }
   void removeObserver(IObserver* o) { publisher_.removeObserver(o); }

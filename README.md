@@ -158,5 +158,8 @@ UMLs:
 
 ![Priority Queue UML](PriorityQueueUML.png)
 
+![Weather Control](WeatherControl.png)
+
 ![Data Manager UML](DataManagerUML.png)
+
 

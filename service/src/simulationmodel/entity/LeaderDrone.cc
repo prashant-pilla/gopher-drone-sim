@@ -18,6 +18,9 @@ void LeaderDrone::update(double dt) {
   if (!available && handoffTriggered && package == nullptr) {
     // we’re en route home; still call the move strategy
     toPackage->move(this, dt);
+    if (toPackage->isCompleted()) {
+      returnToRechargeStation();
+    }
     return;
   }
 
@@ -25,16 +28,22 @@ void LeaderDrone::update(double dt) {
 
   if (battery <= 0.0f) {
     model->notify("Leader drone " + std::to_string(getId()) + " is dead.");
-    return;
   }
   if (battery <= 0.0f && !toPackage) {
     std::cout << "[Leader " << getId() << "] battery dead → returning home\n";
     returnToRechargeStation();
-    return;
+    returningHome = true;
+  }
+  Vector3 home{64.0, 254.0, -210.0};
+  if ((getPosition() - home).magnitude() < 1.0f && returningHome) {
+    std::cout << "[Leader] arrived – recharging now\n";
+    returnToRechargeStation();  // resets battery, flags, availability
   }
 
-  model->notify("Leader drone " + std::to_string(getId()) + "battery is at " +
-                std::to_string(battery));
+  if (std::fmod(battery, 10.0f) == 0.0f) {
+    model->notify("Leader drone " + std::to_string(getId()) + "battery is at " +
+                  std::to_string(battery));
+  }
 
   if (battery < LOW_BATTERY_THRESHOLD && !handoffTriggered && package) {
     if (!handoffLogged) {
@@ -86,8 +95,10 @@ void LeaderDrone::initiateHandoff() {
       }
 
       request.bestHelper->acceptHandoff(package);
+      package = nullptr;
       returnToRechargeStation();
       handoffTriggered = true;
+      returningHome = true;
     }
   }
 }
@@ -111,6 +122,7 @@ void LeaderDrone::returnToRechargeStation() {
     available = true;
     package = nullptr;
     pickedUp = false;
+    returningHome = false;
     std::cout << "[Leader] Recharged to 100%\n";
     delete toPackage;
     toPackage = nullptr;
