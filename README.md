@@ -25,9 +25,9 @@ base, so you can omit classes that are irrelevant to your feature(s).
 
 Team Number: 30
 
-Names: Xander Hill, 
+Names: Xander Hill, Casey Paulson
 
-x500s: hill1594, 
+x500s: hill1594, paul1401
 
 Overview: Simulation of package delivery and various entity movement in UMN campus. Entities such as drones, humans, helicopters move around map. Deliveries for packages can be scheduled and drones will pick them up from origin and deliver to target destination.
 
@@ -76,9 +76,24 @@ Requirements:
         IF a user attempts to change the shipping status when the package has already been sent for delivery, the drone simulation shall display an error message.
 
 
+    Weather Control:
+      
+      The weather control system shall maintain a vector of the current wind.
+      
+      The weather control system shall randomly update the wind vector over time.
+
+      WHILE a drone is flying the weather system shall impact the flight path of the drone.
+
+      IF the wind is above a threshold WHILE a drone is flying the weather system SHALL damage the drone 
+  
+      IF the drone is damaged it SHALL move slower.
+
+      IF the drone's health/durability is depeleted, it SHALL stop moving 
 Design:
 
     Priority Queue: Adds to delivery features through State design pattern, allowing for each package in delivery queue to have a shipping priority state and queue to be organized by these priorities. State design chosen for this feature because state pattern allows packages to alter their behavior (delivery order) after the internal state changes (shipping priority). Allows seamless switching of shipping priority prior to delivery logic starting (for complexity purposes drones commit to a package and cannot switch between packages prior to pick up).
+
+    Weather Control: Adds a global wind through the Singleton design pattern. This pattern was used so that each drone could access the same information, and that the wind was constant for all entities. The drones interactions with the weather system are done through a decorator to allow new functionality without changing the original base class' funcitonality.  
 
 
 Sprint Retrospective:
