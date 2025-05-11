@@ -31,9 +31,11 @@ SimulationModel::~SimulationModel() {
 void SimulationModel::linkDroneObservers(IEntity *entity) {
   // Link new helpers to existing leaders
   if (auto helper = dynamic_cast<HelperDrone *>(entity)) {
-    for (auto &[id, existing] : entities) {
-      if (auto leader = dynamic_cast<LeaderDrone *>(existing)) {
-        leader->addObserver(helper);
+    for (auto& [_, e] : entities) {
+      if (auto leader = dynamic_cast<LeaderDrone*>(e)) {
+      leader->addObserver(helper);
+      std::cout << "[Link] helper " << helper->getId()
+                << " -> leader " << leader->getId() << "\n";
       }
     }
   }
@@ -204,11 +206,8 @@ void SimulationModel::removeFromSim(int id) {
   }
 }
 
-void SimulationModel::notify(const std::string &message, void *data) const {
+void SimulationModel::notify(const std::string &message) const {
   JsonObject details;
-  if (data) {
-    // Handle data if needed
-  }
   details["message"] = message;
   this->controller.sendEventToView("Notification", details);
 }

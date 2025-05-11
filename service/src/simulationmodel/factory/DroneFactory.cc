@@ -21,7 +21,7 @@ IEntity* DroneFactory::createEntity(const JsonObject& entity) {
     }
 
     if (!baseDrone) {
-      baseDrone = new Drone(entity);
+      baseDrone = new LeaderDrone(entity);
     }
 
     return new DroneDamageDecorator(
