@@ -137,4 +137,4 @@ Jira Board:
 UMLs:
 
 ![Priority Queue UML](PriorityQueueUML.png)
-
+![Weather Control](WeatherControl.png)
