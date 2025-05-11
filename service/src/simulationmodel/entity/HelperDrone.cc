@@ -77,6 +77,11 @@ void HelperDrone::update(double dt) {
     }
     toFinalDestination->move(this, dt);
 
+    if (package && pickedUp) {
+      package->setPosition(position);
+      package->setDirection(direction);
+    }
+
     if (toFinalDestination->isCompleted()) {
       std::cout << "[Helper " << getId() << "] dropped off "
                 << package->getName() << "\n";

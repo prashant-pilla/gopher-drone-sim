@@ -8,7 +8,7 @@
 LeaderDrone::LeaderDrone(const JsonObject &obj) : Drone(obj) {}
 
 void LeaderDrone::update(double dt) {
-  Drone::update(dt);
+  if (battery > 0.0f && !returningHome) Drone::update(dt);
 
   if (!available && !package && battery == 100.0f) {
     // just recharged, let getNextDelivery fire next frame
@@ -25,12 +25,17 @@ void LeaderDrone::update(double dt) {
 
   if (battery <= 0.0f) {
     model->notify("Leader drone " + std::to_string(getId()) + " is dead.");
-    return;
   }
   if (battery <= 0.0f && !toPackage) {
     std::cout << "[Leader " << getId() << "] battery dead → returning home\n";
     returnToRechargeStation();
+    returningHome = true;
     return;
+  }
+  Vector3 home{64.0, 254.0, -210.0};
+  if ((getPosition() - home).magnitude() < 1.0f) {
+    std::cout << "[Leader] arrived – recharging now\n";
+    returnToRechargeStation();  // resets battery, flags, availability
   }
 
   model->notify("Leader drone " + std::to_string(getId()) + "battery is at " +
@@ -111,6 +116,7 @@ void LeaderDrone::returnToRechargeStation() {
     available = true;
     package = nullptr;
     pickedUp = false;
+    returningHome = false;
     std::cout << "[Leader] Recharged to 100%\n";
     delete toPackage;
     toPackage = nullptr;
