@@ -1,196 +1,91 @@
-Writing
-- File Name: README.md (should be located in the GitHub repository)
-- Team number, member names, and x500s.
-- Overview: This should be an overview of the whole project, not just your
-extension
-- Instructions: This section should include build and run commands as well as
-instructions on how to use the front end. If your extension drastically changes the
-way that the user interacts with the simulation, we need to know this.
-- Requirements: This section should have a complete list of EARS style
-requirements for only your new features.
-- Design: This section should explain how your extension adds to existing features
-using design patterns and why you chose those design patterns for the design.
-- Sprint retrospective: This section should have your sprint retrospective which we
-expect you to write when you finish the project. A sprint retrospective is stating
-what went well, what didn’t go well, and what to do next time to mitigate what
-didn’t go well.
-- Jira Board: Please include a screenshot of your completed sprint board as well.
-- UML
-- Create a UML diagram depicting ONLY your new feature(s)
-- Upload this to the GitHub repo and also display this in the aforementioned
-README file
-- The person who will be reading your UML is assumed to be fluent in the code
-base, so you can omit classes that are irrelevant to your feature(s).
+# Gopher Drone Sim
 
+Interactive 3D simulation of autonomous drone package delivery across the University of Minnesota campus. A C++ simulation engine talks to a Three.js frontend over WebSockets — schedule trips, watch drones fly the map, and export run stats.
 
-Team Number: 30
+[Watch the demo](https://youtu.be/94SR9GqrnaE) · [Run with Docker](#docker)
 
-Names: Xander Hill, Casey Paulson, Prashant Pilla, Ryan Hale
+[![Demo](https://img.youtube.com/vi/94SR9GqrnaE/maxresdefault.jpg)](https://youtu.be/94SR9GqrnaE)
 
-x500s: hill1594, paul1401, pilla146, hale0206
+## Features
 
-Overview: Simulation of package delivery and various entity movement in UMN campus. Entities such as drones, humans, helicopters move around map. Deliveries for packages can be scheduled and drones will pick them up from origin and deliver to target destination.
+- **Campus-scale deliveries** — click two points on the 3D map to schedule a package pickup and drop-off
+- **Shipping priorities** — Expedited, Standard, and No Rush queues; change priority until a drone claims the package
+- **Pathfinding** — A\*, Dijkstra, BFS, and DFS routing over the campus graph
+- **Leader / helper drones** — when a leader’s battery drops below 20%, it hands the package to the nearest free helper and returns to recharge
+- **Weather** — a shared wind field that can push, damage, and eventually disable drones
+- **Ops export** — write distance traveled and packages delivered to CSV
+- **Live controls** — sim speed, entity camera follow, add humans/drones, show routes, notifications
 
-Instructions: 
+## Stack
 
-    build: make -j
+| Layer | Tech |
+| --- | --- |
+| Simulation | C++, Make, libwebsockets |
+| Routing | OSM campus graph, A\* / Dijkstra / BFS / DFS |
+| Frontend | TypeScript, Three.js, Vite |
+| Run | Docker or local `make` |
 
-    run: make run
+The backend owns the world: entities, strategies, queues, weather, and handoff. The browser is a 3D view and control panel. They stay in sync over a WebSocket.
 
-    frontend: Move around and adjust zoom of map by clicking and dragging. Schedule deliveries by clicking two points on map, naming packing, and selecting priority and movement strategies. Add additional drones to pickup more packages. Add other entities as requested. Change package priorities by entering package name (with _package at end) and selecting newly desired priority. Export simulation data to .csv file that will save locally. Adjust simulation speed as desired.
+## Architecture
 
-Requirements:
+A few systems do the interesting work:
 
-    Priority Queue:
+- **Priority queue** — each package carries a shipping state (Expedited / Standard / No Rush). Changing state reorders the queue; once a drone is committed, priority is locked.
+- **Weather** — a single wind vector that every drone reads. Damage is layered on with a decorator so the base drone class stays unchanged.
+- **Multi-drone handoff** — leader drones publish `HANDOFF_REQUEST`; helper drones subscribe and the nearest idle helper takes the package.
+- **Data manager** — one process-wide collector for distance and delivery counts, with frontend notifications on export.
 
-        The drone simulation shall deliver packages in order based on their priority.
+Entities (drones, robots, humans, helicopters, packages) are created through factories so new types plug in without rewriting the sim loop.
 
-        The drone simulation shall track the order of the packages to be delivered.
+## Quick start
 
-        The drone simulation shall allow for three levels of shipping priority to be chosen.
+**Prereqs:** a C++ toolchain, Make, Node.js 20+, npm.
 
-        The drone simulation shall allow the shipping priority to be chosen on the control panel through a drop down box.
+```bash
+make -j
+make run
+```
 
-        The drone simulation shall present the shipping queue in the control panel, which presents the list of packages to be shipped.
+Open [http://localhost:8081](http://localhost:8081).
 
-        The drone simulation shall display the shipping status and delivery status of each package.
+Useful targets:
 
-        The drone simulation shall require shipping priority selected when scheduling a package.
+```bash
+make run PORT=8090   # different port
+make debug           # gdb
+make docs            # Doxygen
+make lint            # clang-format (Google style)
+make clean
+```
 
-        The drone simulation shall order the packages in the queue with Expedited packages first, standard packages second, and No Rush packages last.
+### Docker
 
-        WHEN a package is scheduled to be delivered, the drone simulation shall be entered into the queue based on the priority selected.
+```bash
+docker pull prashantpilla/gopher-drone-sim
+docker run --rm -p 8081:8081 prashantpilla/gopher-drone-sim
+```
 
-        WHEN a package is delivered, the next package in the queue shall be selected for delivery.
+Or build this tree:
 
-        WHEN a package is picked up for delivery, the drone simulation shall not allow any further changes to the shipping priority.
+```bash
+docker build -t gopher-drone-sim .
+docker run --rm -p 8081:8081 gopher-drone-sim
+```
 
-        WHEN a package has been delivered, it shall be removed from the shipping queue.
+Apple Silicon: uncomment the `FROM --platform=linux/amd64` line at the top of the `Dockerfile` if the default image fails to run.
 
-        WHILE a package hasn’t been claimed for delivery, the drone simulation shall allow changing of priority shipping.
+## Using the sim
 
-        IF a package’s shipping status changes, the drone simulation shall add the package to the bottom of the selected shipping priority queue.
+1. Drag to pan and zoom the campus map.
+2. **Schedule Trip** — click pickup, then drop-off, name the package, pick a search strategy and shipping priority.
+3. Watch the queue and notifications as drones claim, fly, and deliver.
+4. **Manage Priorities** to reorder packages that have not been picked up yet (`name_package`).
+5. **Add Drone** as Leader or Helper if you want more capacity; helpers only take handoffs.
+6. **Send Stats to CSV** writes a local export of the run.
 
-        IF a package has their shipping status changed, the drone simulation shall send out a notification.
+## Team
 
-        IF a user attempts to change the shipping status when the package has already been sent for delivery, the drone simulation shall display an error message.
+Built by [Prashant Pilla](https://github.com/prashant-pilla), Xander Hill, Casey Paulson, and Ryan Hale.
 
-
-    Weather Control:
-      
-      The weather control system shall maintain a vector of the current wind.
-      
-      The weather control system shall randomly update the wind vector over time.
-
-      WHILE a drone is flying the weather system shall impact the flight path of the drone.
-
-      IF the wind is above a threshold WHILE a drone is flying the weather system SHALL damage the drone 
-  
-      IF the drone is damaged it SHALL move slower.
-
-      IF the drone's health/durability is depeleted, it SHALL stop moving 
-
-
-    Multi-drone Coordination:
-
-        WHEN a LeaderDrone’s battery falls below 20% AND it is carrying a package, THEN it SHALL broadcast a HANDOFF_REQUEST to all HelperDrones.
-
-        WHEN multiple HelperDrones receive a HANDOFF_REQUEST, THEN ONLY the nearest available HelperDrone SHALL accept the request.
-
-        A HelperDrone SHALL NOT accept a handoff if it is currently handling another delivery.
-
-        WHEN a HelperDrone accepts the handoff, THEN the original LeaderDrone SHALL clear its delivery state and autonomously return to its recharge station at (64, 254, -210).
-
-        WHEN the LeaderDrone arrives within 1 m of the station, THEN it SHALL reset its battery to 100% and become available for new deliveries.
-
-        WHEN a LeaderDrone broadcasts a handoff, THEN display "LeaderDrone <ID> requesting handoff".
-
-        WHEN a HelperDrone accepts, THEN display "HelperDrone <ID> accepted handoff for LeaderDrone <ID>".
-
-        WHEN a LeaderDrone dies or recharges,THEN display appropriate system notification.
-
-
-    Data Collection Manager
-
-        The Data Manager will keep track of system events.
-
-	The Data Manager will store relevant operational data.
-
-        The Data Manager will only have one instance.
-
-        WHEN the "Write stats to CSV File" is pressed by the user, a CSV will be created storing the collected data.
-
-        WHEN the data is exported successfully for analysis, the data manager will notify the front end.
-
-        IF the data export fails, the front end will be notified.
-
-Design:
-
-    Priority Queue: Adds to delivery features through State design pattern, allowing for each package in delivery queue to have a shipping priority state and queue to be organized by these priorities. State design chosen for this feature because state pattern allows packages to alter their behavior (delivery order) after the internal state changes (shipping priority). Allows seamless switching of shipping priority prior to delivery logic starting (for complexity purposes drones commit to a package and cannot switch between packages prior to pick up).
-
-    Weather Control: Adds a global wind through the Singleton design pattern. This pattern was used so that each drone could access the same information, and that the wind was constant for all entities. The drones interactions with the weather system are done through a decorator to allow new functionality without changing the original base class' funcitonality.  
-
-    Multi-drone Coordination: Notifies all helper drones using Observer pattern. This pattern was used specifically because the observer pattern was already implemented to help notify observers. I added all helper drones to be observers and linked them to the leader drones so that they receive notifications whenever a handoff is requested. I also built on the existing factory pattern used to create entities and modified that so that roles were assigned to drones when created. Integrated the drone factory to also work with frond end in order to add more helper and leader drones via the front end. The factory pattern was helpful as it extends the general create entity method from the entity interface without needing indivdual declarations for all entities.
-
-    Data Manager: The data manager adds the ability to track the distance entities have traveled and the total number of packages delivered in the simulation. It utilizes the observer pattern
-    for front end notifications and, more importantly, implements the singleton design pattern so there is only one instance of the data manager existing at any given moment. The singleton
-    pattern was chosen because all data needs to be stored in the same place.
-
-
-
-Sprint Retrospective:
-    
-    What went well:
-
-        Good communication on heavy work days where lot of progress needed i.e. integration between features, deadlines for steps.
-
-        Good documentation and laying out of requirements, UML, test cases, etc.
-        
-        Consistent code style/structure.
-
-        Members consistently asked for help with features/integration when needed.
-
-        Good use of version control to manage individual features before merging using branch structures.
-
-    What didn't go well:
-
-        Significant work done too close to deadlines, additional stress/scrambling.
-
-        Communication prior to merging, incoming conflicts.
-
-        Underdeveloped CI/CD process.
-
-        Testing not thorough/consistent.
-
-    What to do next time:
-
-        Start every step of process earlier.
-
-        Clearer and committed deadlines.
-
-        Maintain consistent CI/CD process, set up tests for application to pass on merges.
-
-        Set up more tests, and make sure tests are more clearly defined (i.e. specific edge cases).
-
-        Better understand code given before beginning work.
-
-Jira Board:
-
-![Jira Board](JiraBoard.png)
-
-Presentation link (YouTube):
-
-https://youtu.be/94SR9GqrnaE
-
-UMLs:
-
-![Priority Queue UML](PriorityQueueUML.png)
-
-![Weather Control](WeatherControl.png)
-
-![Multi-drone Coordination](https://github.umn.edu/umn-csci-3081w-s25/team-010-30-finalproject/assets/28985/9e83b596-d228-4cde-bdc3-8e7d6d2d6603)
-
-
-![Data Manager UML](DataManagerUML.png)
-
-
+Originally a systems project at the University of Minnesota. This repo is the maintained personal copy.
